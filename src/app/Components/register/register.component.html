@@ -1,0 +1,51 @@
+<div class="max-w-md mx-auto bg-white p-8 border border-gray-300 rounded-lg">
+  <form [formGroup]="form" (ngSubmit)="register()">
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input id="username" type="text" formControlName="username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+      <div *ngIf="usernameValidate" class="text-red-500 text-sm">Username is required.</div>
+    </div>
+    <div class="mb-4">
+      <label for="rut" class="block text-sm font-medium text-gray-700">RUT</label>
+      <input id="rut" type="text" formControlName="rut" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+      <div *ngIf="rutValidate" class="text-red-500 text-sm">RUT is required and must be valid (e.g., 12345678-9).</div>
+    </div>
+    <div class="mb-4">
+      <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
+      <input id="birthdate" type="text" formControlName="birthdate" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm" placeholder="dd-mm-yyyy">
+      <div *ngIf="birthdateValidate" class="text-red-500 text-sm">Birthdate is required and must be valid (dd-mm-yyyy).</div>
+    </div>
+    <div class="mb-4">
+      <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+      <select id="gender" formControlName="gender" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+        <option value="">select gender</option>
+        <option value="masculino">masculino</option>
+        <option value="femenino">femenino</option>
+        <option value="otro">otro</option>
+        <option value="prefiero no decirlo">prefiero no decirlo</option>
+      </select>
+      <div *ngIf="genderValidate" class="text-red-500 text-sm">Gender is required.</div>
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input id="email" type="email" formControlName="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+      <div *ngIf="emailValidate" class="text-red-500 text-sm">Email is required and must be valid.</div>
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+      <input id="password" type="password" formControlName="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+      <div *ngIf="passwordValidate" class="text-red-500 text-sm">Password is required.</div>
+    </div>
+    <div class="mb-4">
+      <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+      <div *ngIf="confirmPasswordValidate" class="text-red-500 text-sm">Confirm Password is required and must match the password.</div>
+    </div>
+    <div *ngIf="errorMessage" class="mb-4">
+      <app-alert [message]="errorMessage" (click)="closeAlert()"></app-alert>
+    </div>
+    <div class="flex justify-end">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Register</button>
+    </div>
+  </form>
+</div>

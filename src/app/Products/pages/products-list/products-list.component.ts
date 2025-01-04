@@ -24,6 +24,8 @@ export class ProductsListComponent implements OnInit{
   totalPages: number = 1; // Total de páginas
   searchQuery: string = '';
   searchType: string = '';
+  isLoading: boolean = false;
+  errorMessage: string = '';
   isSortAscending: boolean = true;
 
 
@@ -57,7 +59,31 @@ export class ProductsListComponent implements OnInit{
     this.filteredArray = this.productsArray;
     return;
   }
-
+  async deleteProduct(productId: string) {
+    try {
+      if (confirm('¿Está seguro que desea eliminar este producto?')) {
+        this.isLoading = true;
+        await this.productService.DeleteProduct(productId);
+        
+        // Update the arrays
+        this.productsArray = this.productsArray.filter(p => p.id !== productId);
+        this.filteredArray = this.filteredArray.filter(p => p.id !== productId);
+        
+        // Recalculate pagination
+        this.totalPages = Math.ceil(this.productsArray.length / this.pageSize);
+        this.paginate();
+        
+        // Show success message (optional)
+        // You could use a toast notification service here
+        alert('Producto eliminado exitosamente');
+      }
+    } catch (error: any) {
+      this.errorMessage = 'Error al eliminar el producto: ' + error.message;
+      console.error('Error al eliminar el producto:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
   filterProductsByName() : void 
   {
     const query  = this.searchQuery.toLowerCase();

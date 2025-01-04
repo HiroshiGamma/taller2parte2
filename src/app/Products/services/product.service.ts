@@ -38,8 +38,21 @@ export class ProductService {
       throw error;
     }
   }
-  
+
+  async DeleteProduct(productId: string): Promise<any> {
+    try {
+      const response = await firstValueFrom(
+        this.http.delete(`${this.baseUrl}/${Number(productId)}`)
+      );
+      return response;
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      throw error;
+    }
+  }
+
   getErrors(): string[] {
     return this.errors;
   }
+  
 }

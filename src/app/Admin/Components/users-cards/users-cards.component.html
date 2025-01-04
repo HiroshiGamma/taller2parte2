@@ -1,0 +1,10 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div *ngFor="let user of users" class="bg-white p-4 rounded-lg shadow-md">
+    <h3 class="text-lg font-bold">{{ user.name }}</h3>
+    <p><strong>RUT:</strong> {{ user.rut }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Birthdate:</strong> {{ user.birthdate }}</p>
+    <p><strong>Gender:</strong> {{ user.gender }}</p>
+    <p><strong>Enabled:</strong> {{ user.enabled ? 'Yes' : 'No' }}</p>
+  </div>
+</div>

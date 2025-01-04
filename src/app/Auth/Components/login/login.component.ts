@@ -59,6 +59,8 @@ export class LoginComponent {
       const response = await this.AuthService.login(this.form.value);
 
       if (response.token) {
+        this.localStorage.setVariable('token', response.token);
+        this.localStorage.setVariable('user', response.username);
         console.log('Login Successful', response.username);
       } else {
         this.errorMessage = 'Invalid password.';

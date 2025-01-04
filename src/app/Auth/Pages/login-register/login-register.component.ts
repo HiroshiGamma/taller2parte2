@@ -5,11 +5,12 @@ import { LoginComponent } from '../../Components/login/login.component';
 import { RegisterComponent } from '../../Components/register/register.component';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.component";
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoginComponent, RegisterComponent],
+  imports: [CommonModule, FormsModule, LoginComponent, RegisterComponent, NavbarComponent],
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })

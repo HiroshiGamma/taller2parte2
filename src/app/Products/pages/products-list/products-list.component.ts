@@ -7,10 +7,11 @@ import { QueryObjectProduct } from '../../interfaces/QueryObjectProduct';
 import { provideRouter } from '@angular/router';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.component";
 
 @Component({
   selector: 'products-list',
-  imports: [ProductCardComponent, CommonModule, FormsModule, HttpClientModule],
+  imports: [ProductCardComponent, CommonModule, FormsModule, HttpClientModule, NavbarComponent],
   providers: [ProductService],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.css'

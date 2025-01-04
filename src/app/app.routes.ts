@@ -12,7 +12,12 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'not_found',
+    loadComponent: () => import('../app/NotFound/Page/error404/error404.component').then(m => m.Error404Component),
+    pathMatch: 'full'
+  },
+  {
     path: '**',
-    redirectTo: 'home',
- }
+    redirectTo: 'not_found',
+  }
 ]

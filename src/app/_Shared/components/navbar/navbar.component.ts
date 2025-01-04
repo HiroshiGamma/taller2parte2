@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   private LSservice = inject(LocalStorageService);
   isLogged: boolean = this.LSservice.getVariable('token') ? true : false;
+  role: string = this.LSservice.getVariable('role');
 
 
   constructor (private router: Router) {}

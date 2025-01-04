@@ -2,6 +2,12 @@
     <div>
       <a href="/home">Productos</a>
     </div>
+    <div>
+      <a *ngIf="role == 'Admin'" href="/admin_menu">Menú administrador</a>
+    </div>
+    <div>
+      <a *ngIf="role == 'User'" href="/user_menu">Configurar cuenta</a>
+    </div>
     <div style="position: absolute; right: 30px; top: 15px;" class="">
         <a *ngIf="!isLogged" href="/login">Iniciar sesión / Registrarse</a>
     </div>

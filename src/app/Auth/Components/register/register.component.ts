@@ -1,77 +1,46 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { LocalStorageService } from '../../Services/local-storage.service';
-import { Router } from '@angular/router';
-import { AlertComponent } from '../alert/alert.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, AlertComponent],
-  providers: [AuthServiceService, LocalStorageService],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-
   form!: FormGroup;
-  registerAlert: boolean = false;
+  registrationAlert: boolean = false;
   error: boolean = false;
   errorMessage: string = '';
 
-  @Output() registerSuccess = new EventEmitter<any>();
-
-  private AuthService = inject(AuthServiceService);
+  private authService = inject(AuthServiceService);
   private localStorage = inject(LocalStorageService);
 
   constructor(private fb: FormBuilder, private router: Router) {
-    this.formulario();
+    this.createForm();
   }
 
-  formulario() {
+  createForm() {
     this.form = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(255), Validators.pattern('^[a-zA-Z\\s]+$')]],
+      rut: ['', [Validators.required, Validators.maxLength(10)]],
+      birthdate: ['', [Validators.required, this.validateBirthdate]],
       email: ['', [Validators.required, Validators.email]],
-      rut: ['', [Validators.required, Validators.pattern(/^\d{1,2}\d{3}\d{3}-[\dkK]$/)]],
-      birthdate: ['', [Validators.required, Validators.pattern(/^\d{2}-\d{2}-\d{4}$/)]],
-      gender: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    }, { validator: this.passwordMatchValidator });
+      gender: ['', [Validators.required, Validators.pattern('masculino|femenino|otro|prefiero no decirlo')]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
+    });
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('password')?.value === form.get('confirmPassword')?.value ? null : { mismatch: true };
-  }
-
-  get usernameValidate() {
-    return this.form.get('username')?.invalid && this.form.get('username')?.touched;
-  }
-
-  get emailValidate() {
-    return this.form.get('email')?.invalid && this.form.get('email')?.touched;
-  }
-
-  get rutValidate() {
-    return this.form.get('rut')?.invalid && this.form.get('rut')?.touched;
-  }
-
-  get birthdateValidate() {
-    return this.form.get('birthdate')?.invalid && this.form.get('birthdate')?.touched;
-  }
-
-  get genderValidate() {
-    return this.form.get('gender')?.invalid && this.form.get('gender')?.touched;
-  }
-
-  get passwordValidate() {
-    return this.form.get('password')?.invalid && this.form.get('password')?.touched;
-  }
-
-  get confirmPasswordValidate() {
-    return this.form.get('confirmPassword')?.invalid && this.form.get('confirmPassword')?.touched;
+  validateBirthdate(control: any) {
+    const birthdate = control.value;
+    const [day, month, year] = birthdate.split('-').map((val: string) => parseInt(val, 10));
+    const date = new Date(year, month - 1, day);
+    return date < new Date() ? null : { invalidDate: true };
   }
 
   async register() {
@@ -80,43 +49,33 @@ export class RegisterComponent {
         control.markAsTouched();
       });
       this.errorMessage = 'Please fill out the form correctly.';
-      this.registerAlert = true;
+      this.registrationAlert = true;
       return;
     }
 
+    const formValue = { ...this.form.value };
+    const [day, month, year] = formValue.birthdate.split('-').map((val: string) => parseInt(val, 10));
+    formValue.birthdate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`; // Ensure birthdate is in dd-mm-yyyy format
+    formValue.enabled = true; // Ensure enabled is always true
+
     try {
-      const formValue = {
-        username: this.form.value.username,
-        rut: this.form.value.rut,
-        birthdate: this.form.value.birthdate,
-        email: this.form.value.email,
-        gender: this.form.value.gender,
-        password: this.form.value.password,
-        enabled: true
-      }; // Format the form data
-
-      const response = await this.AuthService.register(formValue);
-
+      const response = await this.authService.register(formValue);
       if (response.token) {
-        console.log('Registration Successful', response.username);
-        this.localStorage.setVariable('token',response.token); // Save the token
-        this.registerSuccess.emit(formValue);
-        this.router.navigate(['/home']); // Redirect to home
+        this.localStorage.setVariable('token', response.token);
+        this.localStorage.setVariable('role', response.role);
+        this.router.navigate(['/user_menu']);
       } else {
         this.errorMessage = 'Registration failed.';
-        this.registerAlert = true;
+        this.registrationAlert = true;
       }
-
     } catch (error: any) {
       this.errorMessage = 'Registration error.';
-      this.registerAlert = true;
+      this.registrationAlert = true;
     }
   }
 
-  // Method to close the alert
   closeAlert() {
     this.errorMessage = '';
-    this.registerAlert = false;
+    this.registrationAlert = false;
   }
-
 }

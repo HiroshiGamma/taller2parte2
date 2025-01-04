@@ -1,13 +1,62 @@
 <app-navbar></app-navbar>
 <div class="mt-10">
+    
     <div class="justify-center items-center p-5">
         <input type="text" placeholder="Buscar"
-            [(ngModel)]="searchQuery" (input)="filterProducts()"
+            [(ngModel)]="searchQuery" (input)="filterProductsByName()"
         />
-      </div>
-      <div class="px-5 flex justify-center items-center gap-5" *ngFor="let product of filteredArray">
+    </div>
+    <div class="justify-top items-center p-5">
+        <button (click)="sortByPrice()">
+            Ordenar por precio {{ isSortAscending ? '↑' : '↓' }}
+        </button>
+    </div>
+    <div class="justify-center items-center p-5">
+        <label for="type" class="block text-sm font-medium text-gray-700">Seleccione tipo del producto</label>
+        <select id="type" [(ngModel)]="searchType" (change)="filterProductsByType()">
+          <option value="Poleras">Poleras</option>
+          <option value="Gorros">Gorros</option>
+          <option value="Juguetería">Juguetería</option>
+          <option value="Alimentación">Alimentación</option>
+          <option value="Libros">Libros</option>
+        </select>
+    </div>
+    <div class="px-5 flex justify-center items-center gap-5" *ngFor="let product of filteredArray">
         <div class="my-3">
-          <product-card [product]="product"></product-card>
+            <product-card [product]="product"></product-card>
         </div>
-      </div>
+    </div>
 </div>
+<!-- Barra de paginación -->
+<div *ngIf="totalPages > 1" style="display: flex; justify-content: center; margin: 20px;">
+    <button 
+      style="margin: 0 5px; padding: 5px 10px; border: none; background-color: #ddd; cursor: pointer;"
+      [disabled]="currentPage === 1"
+      (click)="goToPage(currentPage - 1)"
+    >
+      &lt;
+    </button>
+
+    <button 
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [ngStyle]="{
+            'margin': '0 5px',
+            'padding': '5px 10px',
+            'border': 'none',
+            'cursor': 'pointer',
+            'background-color': currentPage === (i + 1) ? '#555' : '#ddd',
+            'color': currentPage === (i + 1) ? 'white' : 'black'
+        }"
+        (click)="goToPage(i + 1)"
+        >
+        {{ i + 1 }}
+    </button>
+
+    <button 
+      style="margin: 0 5px; padding: 5px 10px; border: none; background-color: #ddd; cursor: pointer;"
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(currentPage + 1)"
+    >
+      &gt;
+    </button>
+  </div>

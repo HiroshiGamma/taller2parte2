@@ -6,7 +6,7 @@ import { ResponseAPIGetAllProducts } from '../../interfaces/ResponseAPIGetAllPro
 import { QueryObjectProduct } from '../../interfaces/QueryObjectProduct';
 import { provideRouter } from '@angular/router';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.component";
 
 @Component({
@@ -19,9 +19,16 @@ import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.compo
 export class ProductsListComponent implements OnInit{
   productsArray: ResponseAPIGetAllProducts[] = [];
   filteredArray: ResponseAPIGetAllProducts[] = [];
+  currentPage: number = 1; // Página actual
+  pageSize: number = 10; // Cantidad máxima por página
+  totalPages: number = 1; // Total de páginas
   searchQuery: string = '';
+  searchType: string = '';
+  isSortAscending: boolean = true;
+
 
   private productService = inject(ProductService);
+
 
   ngOnInit(): void 
   {
@@ -38,6 +45,9 @@ export class ProductsListComponent implements OnInit{
           console.log('Añadiendo:', products[i]);
           this.productsArray.push(products[i]);
         }
+        this.totalPages = Math.ceil(this.productsArray.length / this.pageSize);
+
+        this.paginate();
 
         console.log('Productos obtenidos:', this.productsArray);
       })
@@ -48,16 +58,49 @@ export class ProductsListComponent implements OnInit{
     return;
   }
 
-  filterProducts() : void 
+  filterProductsByName() : void 
   {
     const query  = this.searchQuery.toLowerCase();
     this.filteredArray = this.productsArray.filter((product) =>
-      Object.values(product)
-      .join(' ')
+      product.name
       .toLowerCase()
       .includes(query)
     );
   }
+  filterProductsByType() : void 
+  {
+    if (!this.searchType) {
+      this.filteredArray = this.productsArray; // Show all products if no type selected
+      return;
+    }
+    
+    this.filteredArray = this.productsArray.filter((product) =>
+      product.type.toLowerCase() === this.searchType.toLowerCase()
+    );
+  }
 
+  sortByPrice(): void {
+    this.isSortAscending = !this.isSortAscending; // Toggle sort direction
+    
+    this.filteredArray.sort((a, b) => {
+      if (this.isSortAscending) {
+        return a.price - b.price; // Ascending order
+      } else {
+        return b.price - a.price; // Descending order
+      }
+    });
+  }
 
+  paginate(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.filteredArray = this.productsArray.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.paginate();
+    }
+  }
 }

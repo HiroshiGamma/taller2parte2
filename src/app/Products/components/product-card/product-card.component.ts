@@ -14,6 +14,7 @@ export class ProductCardComponent {
 
   @Input() product: ResponseAPIGetAllProducts
   @Output() delete = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<string>();
 
   private LSservice = inject(LocalStorageService);
   role: string = this.LSservice.getVariable('role');
@@ -31,5 +32,11 @@ export class ProductCardComponent {
 
   onDelete() {
     this.delete.emit(this.product.id);
+  }
+
+  
+
+  onEdit() {
+    this.edit.emit(this.product.id);
   }
 }

@@ -27,6 +27,18 @@ export class ProductService {
     }
   }
 
+  async GetProduct(productId: string): Promise<any> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get(`${this.baseUrl}/${Number(productId)}`)
+      );
+      return response;
+    } catch (error) {
+      console.error('Error getting product:', error);
+      throw error;
+    }
+  }
+  
   async CreateProduct(formData: FormData): Promise<any> {
     try {
       const response = await firstValueFrom(
@@ -39,6 +51,22 @@ export class ProductService {
     }
   }
 
+  async UpdateProduct(productId: string, formData: FormData): Promise<any> {
+    try {
+      // Check if your backend expects multipart/form-data
+      const headers = {
+      };
+
+      const response = await firstValueFrom(
+        this.http.put(`${this.baseUrl}/${productId}`, formData)
+      );
+      return response;
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw error;
+    }
+  }
+  
   async DeleteProduct(productId: string): Promise<any> {
     try {
       const response = await firstValueFrom(

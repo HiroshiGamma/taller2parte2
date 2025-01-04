@@ -8,13 +8,20 @@
   <div>
     <button *ngIf="product.stock > 0" class="px-4 py-2 mt-2 text-sm font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:bg-green-400">Agregar al carrito</button>
   </div>
-  <button 
-    *ngIf="role == 'Admin'"
-    (click)="onDelete()"
-    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-  >
-    Eliminar
-  </button>
+  <div class="flex gap-2" *ngIf="role == 'Admin'">
+    <button 
+      (click)="onEdit()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Editar
+    </button>
+    <button 
+      (click)="onDelete()"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Eliminar
+    </button>
+  </div>
 </div>
 
 

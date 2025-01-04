@@ -22,13 +22,17 @@ export const routes: Routes = [
     path: 'admin_menu',
     loadComponent: () => import('../app/Admin/pages/admin-menu/admin-menu.component').then(m => m.AdminMenuComponent),
     canActivate: [AdminGuard],
-
   },
   {
     path: 'add_product',
     loadComponent: () => import('../app/Products/pages/add-product/add-product.component').then(m => m.AddProductComponent),
     canActivate: [AdminGuard],
    },
+   {
+    path: 'products/edit/:id',
+    loadComponent: () => import('../app/Products/components/update-product-form/update-product-form.component').then(m => m.UpdateProductFormComponent),
+    canActivate: [AdminGuard] // Protect the route
+  },
   {
     path: 'user_menu',
     loadComponent: () => import('../app/User/pages/user-menu/user-menu.component').then(m => m.UserMenuComponent),

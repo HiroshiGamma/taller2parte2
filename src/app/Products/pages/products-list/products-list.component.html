@@ -25,6 +25,7 @@
         <div class="my-3">
             <product-card [product]="product"
             (delete)="deleteProduct($event)"
+            (edit)="onEditProduct($event)"
             ></product-card>
         </div>
     </div>

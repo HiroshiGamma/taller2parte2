@@ -1,0 +1,88 @@
+<!-- edit-product.component.html -->
+<app-navbar></app-navbar>
+
+<div class="max-w-lg mx-auto mt-8">
+  <h2 class="text-2xl font-bold mb-4">Editar Producto</h2>
+  
+  <form [formGroup]="productForm" *ngIf="currentProduct">
+    
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">
+        Nombre producto
+      </label>
+      <input 
+        type="text" 
+        formControlName="name"
+        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+      />
+    </div>
+
+    <div class="mb-5">
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Tipo de producto
+        </label>
+        <input 
+          type="text" 
+          formControlName="type"
+          class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+        />
+    </div>
+
+    <div class="mb-5">
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Precio del producto
+        </label>
+        <input 
+          type="text" 
+          formControlName="price"
+          class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+        />
+      </div>
+
+    <div class="mb-5">
+    <label class="block mb-2 text-sm font-medium text-gray-900">
+        Stock del producto
+    </label>
+    <input 
+        type="text" 
+        formControlName="stock"
+        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+    />
+    </div>
+
+    <!-- Show current image -->
+    <div class="mb-5">
+      <img 
+        *ngIf="currentProduct.imageUrl" 
+        [src]="currentProduct.imageUrl" 
+        class="w-32 h-32 object-cover mb-2"
+      />
+      <img-drop (fileSelected)="onFileSelected($event)"></img-drop>
+    </div>
+
+    <div class="flex gap-4">
+      <button 
+        type="button"
+        (click)="submit()"
+        [disabled]="productForm.invalid"
+        class="text-white bg-blue-700 hover:bg-blue-800 font-semibold rounded-lg text-sm px-5 py-2.5"
+      >
+        Guardar Cambios
+      </button>
+      
+      <button 
+        type="button"
+        routerLink="/products"
+        class="text-gray-700 bg-gray-200 hover:bg-gray-300 font-semibold rounded-lg text-sm px-5 py-2.5" 
+        (click)="volver()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <!-- Loading state -->
+  <div *ngIf="!currentProduct" class="text-center py-8">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+  </div>
+</div>

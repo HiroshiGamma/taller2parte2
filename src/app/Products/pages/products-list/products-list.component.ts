@@ -4,14 +4,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
 import { ResponseAPIGetAllProducts } from '../../interfaces/ResponseAPIGetAllProducts';
 import { QueryObjectProduct } from '../../interfaces/QueryObjectProduct';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { FormBuilder, FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.component";
 
 @Component({
   selector: 'products-list',
-  imports: [ProductCardComponent, CommonModule, FormsModule, HttpClientModule, NavbarComponent],
+  imports: [ProductCardComponent, CommonModule, FormsModule, NavbarComponent],
   providers: [ProductService],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.css'
@@ -36,6 +36,8 @@ export class ProductsListComponent implements OnInit{
   {
     this.ObtenerProductos();
   }
+
+  constructor(private router: Router) {}
 
   ObtenerProductos() 
   {
@@ -115,6 +117,10 @@ export class ProductsListComponent implements OnInit{
         return b.price - a.price; // Descending order
       }
     });
+  }
+  onEditProduct(productId: string) {
+    this.router.navigate([`/products/edit/${productId}`]);
+    console.log(productId)
   }
 
   paginate(): void {

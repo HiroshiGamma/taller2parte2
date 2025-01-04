@@ -1,9 +1,18 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './Pages/home/home.component';
-import { LoginRegisterComponent } from './Pages/login-register/login-register.component';
-import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: LoginRegisterComponent }, // Default route
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }
-];
+  {
+    path: 'home',
+    loadComponent: () => import('../app/Products/pages/products-list/products-list.component').then(m => m.ProductsListComponent),
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('../app/Auth/Pages/login-register/login-register.component').then(m => m.LoginRegisterComponent),
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+ }
+]

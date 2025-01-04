@@ -1,0 +1,11 @@
+
+<div class="mt-10">
+    <div class="justify-center items-center p-5">
+        <input type="text" placeholder="Buscar"
+            [(ngModel)]="searchQuery" (input)="filterProducts()"
+        />
+      </div>
+      <div class="px-5 flex justify-center items-center gap-5" *ngFor="let product of filteredArray">
+          <product-card [product]="product"></product-card>
+      </div>
+</div>

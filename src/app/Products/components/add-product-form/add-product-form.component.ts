@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.component";
 import { ProductDto } from '../../interfaces/ProductDto';
@@ -15,12 +15,14 @@ import { LocalStorageService } from '../../../Auth/Services/local-storage.servic
   styleUrl: './add-product-form.component.css'
 })
 export class AddProductproductFormComponent implements OnInit{
+  @ViewChild(ImgDropComponent) imgDrop!: ImgDropComponent;
   productForm!: FormGroup;
   error: boolean = false;
   errorMessage: string[] = [];
+  selectedFile: File | null = null;
   productService = inject(ProductService);
   
-  constructor(private fb: FormBuilder, private localStorageService: LocalStorageService) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
@@ -28,7 +30,6 @@ export class AddProductproductFormComponent implements OnInit{
       type: ['', Validators.required],
       price: ['', Validators.required],
       stock: ['', Validators.required],
-      imageUrl: ['', Validators.required],
     });
   }
   get nameValidate() 
@@ -47,42 +48,38 @@ export class AddProductproductFormComponent implements OnInit{
   {
     return this.productForm.get('stock')?.invalid && this.productForm.get('stock')?.touched;
   }
-  get imageValidate() 
-  {
-    return this.productForm.get('image')?.invalid && this.productForm.get('image')?.touched;
-  }
-  async submit() {
-    if (this.productForm.invalid) return;
-    if (!this.localStorageService.getVariable('imgUrl')) return;
-    try{
-      const Product: ProductDto = {
-        name: this.productForm.value.name,
-        type: this.productForm.value.type,
-        price: this.productForm.value.price,
-        stock: this.productForm.value.stock,
-        imageUrl: this.localStorageService.getVariable('imgUrl')
-      }
-      const response = await this.productService.CreateProduct(Product);
 
-      console.log('Response: ', response);
+  onFileSelected(file: File) {
+    this.selectedFile = file;
+  }
+
+  async submit() {
+    if (this.productForm.invalid || !this.selectedFile) return;
+
+    try {
+      const formData = new FormData();
+      // Add all form fields to FormData
+      formData.append('name', this.productForm.value.name);
+      formData.append('type', this.productForm.value.type);
+      formData.append('price', this.productForm.value.price);
+      formData.append('stock', this.productForm.value.stock);
+      formData.append('image', this.selectedFile); // Add the file
+
+      const response = await this.productService.CreateProduct(formData);
+
       if (response) {
         this.error = false;
         this.errorMessage = [];
-        console.log('Profesor registrado: ', response);
-      }
-
-      else {
+        console.log('Producto registrado: ', response);
+        this.productForm.reset();
+      } else {
         this.error = true;
         this.errorMessage = this.productService.getErrors();
-        console.log('Error al crear profesor: ', this.errorMessage);
       }
-    } catch (error:any) {
-      
+    } catch (error: any) {
       console.error('Error en OnSubmit', error);
       this.error = true;
       this.errorMessage.push(error.error);
-    } finally {
-      console.log('Petición finalizada.');
     }
-    }
+  }
 }

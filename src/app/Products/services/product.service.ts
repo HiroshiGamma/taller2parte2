@@ -27,17 +27,15 @@ export class ProductService {
     }
   }
 
-  async CreateProduct(product: ProductDto): Promise<ResponseAPIGetAllProducts>{
-    try{
+  async CreateProduct(formData: FormData): Promise<any> {
+    try {
       const response = await firstValueFrom(
-        this.http.post<ResponseAPIGetAllProducts>(`${this.baseUrl}`, product)
+        this.http.post(`${this.baseUrl}`, formData)
       );
-      return Promise.resolve(response);
-
-    }catch (error){
-      console.log(error);
-      let e = error as HttpErrorResponse;
-      return Promise.reject(error);
+      return response;
+    } catch (error) {
+      console.error('Error creating product:', error);
+      throw error;
     }
   }
   

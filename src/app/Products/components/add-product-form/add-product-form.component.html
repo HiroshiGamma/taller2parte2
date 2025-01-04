@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<!-- add-product-form.component.html -->
 <form class="max-w-lg mx-auto" [formGroup]="productForm">
     <!-- Nombre Producto -->
     <div class="mb-5">
@@ -45,10 +45,18 @@
       </div>
     </div>
 
-    <img-drop></img-drop>
-
-    <button type="button" (click)="submit()"
-    class="text-white  bg-blue-700 hover:bg-blue-800 primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3">Ingresar producto
+    <div class="mb-5">
+      <img-drop (fileSelected)="onFileSelected($event)"></img-drop>
+      <div *ngIf="!selectedFile && productForm.touched" class="text-red-500 text-sm font-medium">
+        Por favor seleccione una imagen.
+      </div>
+    </div>
+  
+    <button type="button" 
+      (click)="submit()"
+      [disabled]="productForm.invalid || !selectedFile"
+      class="text-white bg-blue-700 hover:bg-blue-800 primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3">
+      Ingresar producto
     </button>
-
+</form>
   

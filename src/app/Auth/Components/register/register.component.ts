@@ -99,7 +99,7 @@ export class RegisterComponent {
 
       if (response.token) {
         console.log('Registration Successful', response.username);
-        this.localStorage.setAuthToken(response.token); // Save the token
+        this.localStorage.setVariable('token',response.token); // Save the token
         this.registerSuccess.emit(formValue);
         this.router.navigate(['/home']); // Redirect to home
       } else {

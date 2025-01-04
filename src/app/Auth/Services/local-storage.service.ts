@@ -19,18 +19,6 @@ export class LocalStorageService {
     localStorage.removeItem(key);
   }
 
-  setAuthToken(token: string) {
-    this.setVariable('authToken', token);
-  }
-
-  getAuthToken(): string | null {
-    return this.getVariable('authToken');
-  }
-
-  removeAuthToken() {
-    this.removeVariable('authToken');
-  }
-
   clearAll() {
     localStorage.clear();
   }

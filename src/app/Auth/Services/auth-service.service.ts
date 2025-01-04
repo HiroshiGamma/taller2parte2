@@ -20,7 +20,9 @@ export class AuthServiceService {
   
       try{
         const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'auth/login', form));
-        this.localStorageService.setAuthToken(response.token); 
+        this.localStorageService.setVariable('token', response.token); 
+        this.localStorageService.setVariable('user', response.username);
+        this.localStorageService.setVariable('role', response.role);
         this.router.navigate(['/home']); 
         return Promise.resolve(response);
       }catch(error){
@@ -36,7 +38,7 @@ export class AuthServiceService {
     async register(form: any): Promise<ResponseAPIUser> {
       try {
         const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'auth/register', form));
-        this.localStorageService.setAuthToken(response.token);
+        this.localStorageService.setVariable('token', response.token);
         return Promise.resolve(response);
       } catch (error) {
         console.log('Error en el servicio de registro', error);

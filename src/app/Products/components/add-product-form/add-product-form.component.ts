@@ -4,10 +4,13 @@ import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.compo
 import { ProductDto } from '../../interfaces/ProductDto';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ImgDropComponent } from '../../../images/img-drop/img-drop.component';
+import { LocalStorageService } from '../../../Auth/Services/local-storage.service';
 
 @Component({
   selector: 'app-add-product-form',
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, ImgDropComponent],
+  providers: [LocalStorageService],
   templateUrl: './add-product-form.component.html',
   styleUrl: './add-product-form.component.css'
 })
@@ -17,14 +20,14 @@ export class AddProductproductFormComponent implements OnInit{
   errorMessage: string[] = [];
   productService = inject(ProductService);
   
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      type: ['', [Validators.required, Validators.email]],
+      type: ['', Validators.required],
       price: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      stock: ['', Validators.required],
       imageUrl: ['', Validators.required],
     });
   }
@@ -48,15 +51,16 @@ export class AddProductproductFormComponent implements OnInit{
   {
     return this.productForm.get('image')?.invalid && this.productForm.get('image')?.touched;
   }
-  async onSubmit() {
+  async submit() {
     if (this.productForm.invalid) return;
+    if (!this.localStorageService.getVariable('imgUrl')) return;
     try{
       const Product: ProductDto = {
         name: this.productForm.value.name,
         type: this.productForm.value.type,
         price: this.productForm.value.price,
         stock: this.productForm.value.stock,
-        imageUrl: this.productForm.value.imageUrl,
+        imageUrl: this.localStorageService.getVariable('imgUrl')
       }
       const response = await this.productService.CreateProduct(Product);
 

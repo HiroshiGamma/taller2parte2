@@ -22,6 +22,8 @@ export class LoginComponent {
   error: boolean = false;
   errorMessage: string = '';
 
+  
+
   private AuthService = inject(AuthServiceService);
   private localStorage = inject(LocalStorageService);
 
@@ -35,7 +37,6 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
-
 
   get emailValidate() {
     return this.form.get('email')?.invalid && this.form.get('email')?.touched;

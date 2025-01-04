@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<form class="max-w-lg mx-auto" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+<form class="max-w-lg mx-auto" [formGroup]="productForm">
     <!-- Nombre Producto -->
     <div class="mb-5">
       <label class="block mb-2 text-sm font-medium text-gray-900">Nombre producto</label>
@@ -23,7 +23,7 @@
       </div>
     </div>
   
-    <!-- RUT -->
+    <!-- Precio -->
     <div class="mb-5">
       <label class="block mb-2 text-sm font-medium text-gray-900">Precio del producto</label>
       <input type="text" formControlName="price"
@@ -34,21 +34,21 @@
       </div>
     </div>
   
-    <!-- Teléfono -->
+    <!-- Stock -->
     <div class="mb-5">
       <label class="block mb-2 text-sm font-medium text-gray-900">Stock del producto</label>
       <input type="text" formControlName="stock"
         class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
-        placeholder="Ingrese el teléfono" />
+        placeholder="Ingrese el número de stock" />
       <div *ngIf="stockValidate">
         <p class="text-red-500 text-sm font-medium">Ingrese un stock válido.</p>
       </div>
     </div>
 
-    <div *ngIf="error" class="bg-red-500 rounded-lg mb-5 flex justify-center">
-        <p *ngIf="error" class="text-white text-sm font-medium m-5">
-          valores no válidos.
-        </p>
-    </div>
+    <img-drop></img-drop>
+
+    <button type="button" (click)="submit()"
+    class="text-white  bg-blue-700 hover:bg-blue-800 primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3">Ingresar producto
+    </button>
 
   

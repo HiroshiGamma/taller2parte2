@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../_Shared/components/navbar/navbar.component";
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,11 +10,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-menu.component.css'
 })
 export class AdminMenuComponent {
-  constructor(private router: Router) {
+  displayUsers: boolean = false;
 
-  }
+  constructor(private router: Router) {}
 
   addProduct() {
     this.router.navigate(['add_product']);
+  }
+
+  toggleUsers() {
+    this.router.navigate(['show-user']);
   }
 }

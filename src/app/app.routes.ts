@@ -30,6 +30,11 @@ export const routes: Routes = [
     canActivate: [AdminGuard],
    },
   {
+    path: 'show-user',
+    loadComponent: () => import('../app/Admin/pages/show-user/show-user.component').then(m => m.ShowUserComponent),
+    canActivate: [AdminGuard],
+  },
+  {
     path: 'user_menu',
     loadComponent: () => import('../app/User/pages/user-menu/user-menu.component').then(m => m.UserMenuComponent),
     canActivate: [normalUserGuard],

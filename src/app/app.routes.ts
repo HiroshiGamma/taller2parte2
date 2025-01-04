@@ -39,6 +39,11 @@ export const routes: Routes = [
     canActivate: [AdminGuard],
   },
   {
+    path: 'enable-disable-client',
+    loadComponent: () => import('../app/Admin/pages/enable-disable-client/enable-disable-client.component').then(m => m.EnableDisableClientComponent),
+    canActivate: [AdminGuard],
+  },
+  {
     path: 'user_menu',
     loadComponent: () => import('../app/User/pages/user-menu/user-menu.component').then(m => m.UserMenuComponent),
     canActivate: [normalUserGuard],

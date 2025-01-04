@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './users-cards.component.html',
-  styleUrl: './users-cards.component.css'
+  styleUrls: ['./users-cards.component.css']
 })
 export class UsersCardsComponent {
   @Input() users!: any[];

@@ -15,9 +15,14 @@ export class NavbarComponent {
   private LSservice = inject(LocalStorageService);
   isLogged: boolean = this.LSservice.getVariable('token') ? true : false;
   role: string = this.LSservice.getVariable('role');
-
+  isDropdownOpen: boolean = false;
 
   constructor (private router: Router) {}
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
   logout() {
    this.LSservice.clearAll();
    this.router.navigate(['login']);

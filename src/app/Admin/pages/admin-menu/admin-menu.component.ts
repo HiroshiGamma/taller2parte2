@@ -21,4 +21,8 @@ export class AdminMenuComponent {
   toggleUsers() {
     this.router.navigate(['show-user']);
   }
+
+  navigateToEnableDisable() {
+    this.router.navigate(['enable-disable-client']);
+  }
 }

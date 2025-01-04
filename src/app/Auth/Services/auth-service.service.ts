@@ -10,16 +10,16 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class AuthServiceService {
 
-    private apiUrl = 'http://localhost:5042/api/';
+    private apiUrl = 'http://localhost:5042/api/Auth/';
     public errors: string [] = [];
     private http = inject(HttpClient);
     private router = inject(Router);
-    private localStorageService = inject(LocalStorageService);
+    public localStorageService = inject(LocalStorageService);
   
     async login(form: any): Promise<ResponseAPIUser>{
   
       try{
-        const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'auth/login', form));
+        const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'login', form));
         this.localStorageService.setVariable('token', response.token); 
         this.localStorageService.setVariable('user', response.username);
         this.localStorageService.setVariable('role', response.role);
@@ -37,7 +37,11 @@ export class AuthServiceService {
 
     async register(form: any): Promise<ResponseAPIUser> {
       try {
-        const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'auth/register', form));
+        form.enabled = true;
+        const [day, month, year] = form.birthdate.split('-').map((val: string) => parseInt(val, 10));
+        form.birthdate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`; // Ensure birthdate is in dd-mm-yyyy format
+
+        const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'register', form));
         this.localStorageService.setVariable('token', response.token);
         return Promise.resolve(response);
       } catch (error) {

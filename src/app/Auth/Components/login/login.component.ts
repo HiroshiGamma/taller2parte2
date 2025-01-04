@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import { LocalStorageService } from '../../Services/local-storage.service';
 import { Router } from '@angular/router';
@@ -10,7 +9,7 @@ import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, AlertComponent],
+  imports: [ReactiveFormsModule, CommonModule, AlertComponent],
   providers: [AuthServiceService, LocalStorageService],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

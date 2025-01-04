@@ -14,8 +14,17 @@ export const interceptorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>,
   }
   
   return next(modifiedReq).pipe( tap((event) => {console.log('Interceptor: ', event);
+    
     if (event instanceof HttpResponse){
-      //do something if token
+      const newToken = event.body.token;
+      console.log('New Token: ', newToken);
+      if(newToken){
+        localStorage.setItem('token', newToken);
+        if(event.body.username){
+          localStorage.setItem('user',JSON.stringify(event.body.username));
+        }
+      }
+
     }
   }));
 

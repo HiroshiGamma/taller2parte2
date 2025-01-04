@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+
+<form class="max-w-lg mx-auto" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <!-- Nombre Producto -->
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Nombre producto</label>
+      <input type="text" formControlName="name"
+        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+        placeholder="Ingrese el nombre del producto" />
+      <div *ngIf="nameValidate">
+        <p class="text-red-500 text-sm font-medium">Ingrese un nombre válido.</p>
+      </div>
+    </div>
+  
+    <!-- tipo -->
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Tipo del producto</label>
+      <input type="email" formControlName="type"
+        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+        placeholder="Ingrese el tipo" />
+      <div *ngIf="typeValidate">
+        <p class="text-red-500 text-sm font-medium">Ingrese un tipo válido.</p>
+      </div>
+    </div>
+  
+    <!-- RUT -->
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Precio del producto</label>
+      <input type="text" formControlName="price"
+        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+        placeholder="Ingrese el precio" />
+      <div *ngIf="priceValidate">
+        <p class="text-red-500 text-sm font-medium">Ingrese un precio válido.</p>
+      </div>
+    </div>
+  
+    <!-- Teléfono -->
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">Stock del producto</label>
+      <input type="text" formControlName="stock"
+        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5"
+        placeholder="Ingrese el teléfono" />
+      <div *ngIf="stockValidate">
+        <p class="text-red-500 text-sm font-medium">Ingrese un stock válido.</p>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="bg-red-500 rounded-lg mb-5 flex justify-center">
+        <p *ngIf="error" class="text-white text-sm font-medium m-5">
+          valores no válidos.
+        </p>
+    </div>
+
+  

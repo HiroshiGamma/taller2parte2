@@ -22,18 +22,13 @@ export const routes: Routes = [
     path: 'admin_menu',
     loadComponent: () => import('../app/Admin/pages/admin-menu/admin-menu.component').then(m => m.AdminMenuComponent),
     canActivate: [AdminGuard],
-            children: [             
-             {
-                path: '',
-                redirectTo: 'admin_menu',
-                pathMatch: 'full'
-             },
-             {
-                path: '**',
-                redirectTo: 'admin_menu',
-             }
-            ]
+
   },
+  {
+    path: 'add_product',
+    loadComponent: () => import('../app/Products/pages/add-product/add-product.component').then(m => m.AddProductComponent),
+    canActivate: [AdminGuard],
+   },
   {
     path: 'user_menu',
     loadComponent: () => import('../app/User/pages/user-menu/user-menu.component').then(m => m.UserMenuComponent),

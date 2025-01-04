@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { QueryObjectProduct } from '../interfaces/QueryObjectProduct';
 import { ResponseAPIGetAllProducts } from '../interfaces/ResponseAPIGetAllProducts';
 import { firstValueFrom } from 'rxjs';
+import { ProductDto } from '../interfaces/ProductDto';
 
 
 @Injectable({
@@ -24,5 +25,23 @@ export class ProductService {
       let e = error as HttpErrorResponse;
       return Promise.reject(error);
     }
+  }
+
+  async CreateProduct(product: ProductDto): Promise<ResponseAPIGetAllProducts>{
+    try{
+      const response = await firstValueFrom(
+        this.http.post<ResponseAPIGetAllProducts>(`${this.baseUrl}`, product)
+      );
+      return Promise.resolve(response);
+
+    }catch (error){
+      console.log(error);
+      let e = error as HttpErrorResponse;
+      return Promise.reject(error);
+    }
+  }
+  
+  getErrors(): string[] {
+    return this.errors;
   }
 }

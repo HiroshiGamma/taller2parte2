@@ -66,6 +66,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'not_found',
+    redirectTo: 'home',
   }
 ]

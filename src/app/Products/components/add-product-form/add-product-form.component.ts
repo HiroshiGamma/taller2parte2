@@ -71,6 +71,7 @@ export class AddProductproductFormComponent implements OnInit{
         this.error = false;
         this.errorMessage = [];
         console.log('Producto registrado: ', response);
+        alert("Producto creado con exito")
         this.productForm.reset();
       } else {
         this.error = true;

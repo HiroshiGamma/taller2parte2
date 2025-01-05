@@ -82,12 +82,18 @@ export class UpdateProductFormComponent {
     if (this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
-  
+    
+    if (formData.get('name') == this.currentProduct?.name && formData.get('type') == this.currentProduct?.type) 
+      {
+        alert("Debe de cambiar o el nombre o el tipo del producto para actualizar");
+        return;
+      }
 
     try {
       console.log('Sending update with formData:', formData); // Debug log
       const response = await this.productService.UpdateProduct(this.productId, formData);
       console.log('Update response:', response);
+      alert("Se ha actualizado con exito el producto");
       this.router.navigate(['/home']);
     } catch (error) {
       console.error('Error updating product:', error);

@@ -59,6 +59,7 @@ export class CartService {
       await this.loadCart(); // Reload cart after removing item
     } catch (error) {
       console.error('Error removing item from cart:', error);
+      await this.loadCart();
       throw error;
     }
   }

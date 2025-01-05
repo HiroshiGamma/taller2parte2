@@ -6,7 +6,11 @@
   <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {{product.price}}
   </h5>
   <div>
-    <button *ngIf="product.stock > 0" class="px-4 py-2 mt-2 text-sm font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:bg-green-400">Agregar al carrito</button>
+    <div *ngIf="product.stock > 0">
+      <button (click)="addToCart()" class="px-4 py-2 mt-2 text-sm font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:bg-green-400">
+        Agregar al carrito
+      </button>
+    </div>
   </div>
   <div class="flex gap-2" *ngIf="role == 'Admin'">
     <button 

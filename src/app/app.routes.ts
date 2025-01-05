@@ -60,6 +60,11 @@ export const routes: Routes = [
             ]
   },
   {
+    path: 'cart',
+    loadComponent: () => import('../app/Cart/pages/view-cart/view-cart.component').then(m => m.ViewCartComponent),
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: 'not_found',
   }

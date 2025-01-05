@@ -21,6 +21,9 @@
           <li *ngIf="role == 'User'">
             <a href="/user_menu" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Configurar cuenta</a>
           </li>
+          <li>
+            <a href="/cart" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Carrito</a>
+          </li>
           <li *ngIf="isLogged">
             <button (click)="logout()" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cerrar sesión</button>
           </li>

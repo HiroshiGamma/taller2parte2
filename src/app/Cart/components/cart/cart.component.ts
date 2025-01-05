@@ -5,6 +5,7 @@ import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../interfaces/CartItem';
 import { CartDto } from '../../interfaces/CartDto';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,7 @@ export class CartComponent implements OnInit{
   
   cart$: Observable<CartDto>;
 
-  constructor(private cartService: CartService) 
+  constructor(private cartService: CartService, private router: Router) 
   {
     this.cart$ = this.cartService.getCart();
   }
@@ -40,5 +41,9 @@ export class CartComponent implements OnInit{
     } catch (error) {
       console.error('Error removing from cart:', error);
     }
+  }
+  checkOut() 
+  {
+    this.router.navigate(['checkout'])
   }
 }

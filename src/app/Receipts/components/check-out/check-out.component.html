@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="p-6">
+        <h2 class="text-2xl font-bold text-center mb-6">Checkout</h2>
+  
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <!-- RUT -->
+          <div class="space-y-2">
+            <label for="userRut" class="block text-sm font-medium text-gray-700">RUT</label>
+            <input
+              id="userRut"
+              type="text"
+              formControlName="userRut"
+              class="w-full px-3 py-2 border rounded-md"
+              [ngClass]="{'border-red-500': checkoutForm.get('userRut')?.invalid && checkoutForm.get('userRut')?.touched}"
+              placeholder="Enter your RUT"
+            >
+            <div *ngIf="checkoutForm.get('userRut')?.invalid && checkoutForm.get('userRut')?.touched" class="text-red-500 text-sm">
+              RUT is required
+            </div>
+          </div>
+  
+          <!-- Country -->
+          <div class="space-y-2">
+            <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+            <input
+              id="country"
+              type="text"
+              formControlName="country"
+              class="w-full px-3 py-2 border rounded-md"
+              [ngClass]="{'border-red-500': checkoutForm.get('country')?.invalid && checkoutForm.get('country')?.touched}"
+              placeholder="Enter your country"
+            >
+            <div *ngIf="checkoutForm.get('country')?.invalid && checkoutForm.get('country')?.touched" class="text-red-500 text-sm">
+              Country is required
+            </div>
+          </div>
+  
+          <!-- City -->
+          <div class="space-y-2">
+            <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+            <input
+              id="city"
+              type="text"
+              formControlName="city"
+              class="w-full px-3 py-2 border rounded-md"
+              [ngClass]="{'border-red-500': checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched}"
+              placeholder="Enter your city"
+            >
+            <div *ngIf="checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched" class="text-red-500 text-sm">
+              City is required
+            </div>
+          </div>
+  
+          <!-- Commune -->
+          <div class="space-y-2">
+            <label for="commune" class="block text-sm font-medium text-gray-700">Commune</label>
+            <input
+              id="commune"
+              type="text"
+              formControlName="commune"
+              class="w-full px-3 py-2 border rounded-md"
+              [ngClass]="{'border-red-500': checkoutForm.get('commune')?.invalid && checkoutForm.get('commune')?.touched}"
+              placeholder="Enter your commune"
+            >
+            <div *ngIf="checkoutForm.get('commune')?.invalid && checkoutForm.get('commune')?.touched" class="text-red-500 text-sm">
+              Commune is required
+            </div>
+          </div>
+  
+          <!-- Street -->
+          <div class="space-y-2">
+            <label for="street" class="block text-sm font-medium text-gray-700">Street Address</label>
+            <input
+              id="street"
+              type="text"
+              formControlName="street"
+              class="w-full px-3 py-2 border rounded-md"
+              [ngClass]="{'border-red-500': checkoutForm.get('street')?.invalid && checkoutForm.get('street')?.touched}"
+              placeholder="Enter your street address"
+            >
+            <div *ngIf="checkoutForm.get('street')?.invalid && checkoutForm.get('street')?.touched" class="text-red-500 text-sm">
+              Street address is required
+            </div>
+          </div>
+  
+          <!-- Error Message -->
+          <div *ngIf="error" class="bg-red-50 text-red-700 p-4 rounded-md">
+            {{ error }}
+          </div>
+  
+          <!-- Success Message -->
+          <div *ngIf="success" class="bg-green-50 text-green-700 p-4 rounded-md">
+            Checkout successful! Your order has been processed.
+          </div>
+  
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            [disabled]="checkoutForm.invalid || isLoading"
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-blue-300"
+          >
+            {{ isLoading ? 'Processing...' : 'Complete Purchase' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>

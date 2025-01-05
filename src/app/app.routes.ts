@@ -80,6 +80,18 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'checkout',
+    loadComponent: () => import('../app/Receipts/components/check-out/check-out.component').then(m => m.CheckOutComponent),
+    canActivate: [normalUserGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'receipts',
+    loadComponent: () => import('../app/Receipts/pages/receipt-list/receipt-list.component').then(m => m.ReceiptListComponent),
+    canActivate: [AdminGuard],
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: 'home',
   }

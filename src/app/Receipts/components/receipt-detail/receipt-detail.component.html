@@ -1,0 +1,9 @@
+<div *ngIf="loading" class="loading-spinner"></div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+    <app-receipt-card 
+      *ngIf="!loading && !error && receipt" 
+      [receipt]="receipt">
+    </app-receipt-card>
+    <button (click)="downloadPdf()" class="download-button">
+      Download PDF
+    </button>

@@ -64,6 +64,17 @@ export class CartService {
     }
   }
 
+  async CheckOut(formData: FormData): Promise<any> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post(`${this.baseUrl}/checkout`, formData)
+      );
+      return response;
+    } catch (error) {
+      console.error('Error creating product:', error);
+      throw error;
+    }
+  }
   // Get number of items in cart
   getCartCount(): number {
     return this.cartSubject.value.items.reduce((count, item) => count + item.quantity, 0);

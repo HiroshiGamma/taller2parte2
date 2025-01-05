@@ -25,4 +25,7 @@ export class AdminMenuComponent {
   navigateToEnableDisable() {
     this.router.navigate(['enable-disable-client']);
   }
+  navigateToReceiptsList() {
+    this.router.navigate([('receipts')])
+  }
 }

@@ -62,7 +62,8 @@ export class RegisterComponent {
       const response = await this.authService.register(formValue);
       if (response.token) {
         this.localStorage.setVariable('token', response.token);
-        this.localStorage.setVariable('role', response.role);
+        this.localStorage.setVariable('username', response.username); // Save username
+        this.localStorage.setVariable('role', response.role); // Save role
         this.router.navigate(['/user_menu']);
       } else {
         this.errorMessage = 'Registration failed.';

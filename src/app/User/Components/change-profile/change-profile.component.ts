@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { UserService } from '../../Service/user.service';
 import { CommonModule } from '@angular/common';
 import { LocalStorageService } from '../../../Auth/Services/local-storage.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-change-profile',
@@ -17,7 +18,7 @@ export class ChangeProfileComponent {
   successMessage: string = '';
   updatedData: any = null;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private localStorageService: LocalStorageService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private localStorageService: LocalStorageService, private location: Location) {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
       birthdate: ['', Validators.required],
@@ -37,5 +38,9 @@ export class ChangeProfileComponent {
         console.error('Error updating user', error);
       }
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

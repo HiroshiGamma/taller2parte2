@@ -15,12 +15,11 @@ export class normalUserGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (this.localService.getVariable('token')) {
-      if(this.localService.getVariable('user'))
-        {
-          if(this.localService.getVariable('role') == 'User') {
-            return true;
-          }
+      if (this.localService.getVariable('username')) { // Check for 'username' instead of 'user'
+        if (this.localService.getVariable('role') == 'User') {
+          return true;
         }
+      }
     }
     
     this.router.navigate(['/not_found']);

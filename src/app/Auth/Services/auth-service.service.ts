@@ -43,6 +43,8 @@ export class AuthServiceService {
 
         const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'register', form));
         this.localStorageService.setVariable('token', response.token);
+        this.localStorageService.setVariable('username', response.username); // Save username
+        this.localStorageService.setVariable('role', response.role); // Save role
         return Promise.resolve(response);
       } catch (error) {
         console.log('Error en el servicio de registro', error);

@@ -23,7 +23,6 @@ export class normalUserGuard implements CanActivate {
         }
     }
     
-    // Redirect to home page or unauthorized page if user is not admin
     this.router.navigate(['/not_found']);
     return false;
   }

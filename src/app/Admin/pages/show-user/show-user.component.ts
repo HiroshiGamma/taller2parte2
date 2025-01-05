@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminServiceService } from '../../services/admin-service.service';
+import { AdminService } from '../../services/admin-service.service';
 import { UsersCardsComponent } from '../../Components/users-cards/users-cards.component';
 import { NavbarComponent } from '../../../_Shared/components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
@@ -17,17 +17,23 @@ export class ShowUserComponent implements OnInit {
   showUsers: boolean = false;
   filterName: string = '';
 
-  constructor(private adminService: AdminServiceService) {}
+  constructor(private adminService: AdminService) {}
 
-  ngOnInit() {
-    this.adminService.getUsers().subscribe((data) => {
+  async ngOnInit() {
+    try {
+      const data = await this.adminService.getUsers();
       this.users = data.users;
-    });
+    } catch (error) {
+      console.error('Error fetching users', error);
+    }
   }
 
-  filterUsersByName() {
-    this.adminService.getUsersByName(this.filterName).subscribe((data) => {
+  async filterUsersByName() {
+    try {
+      const data = await this.adminService.getUsersByName(this.filterName);
       this.users = data.users;
-    });
+    } catch (error) {
+      console.error('Error fetching users by name', error);
+    }
   }
 }

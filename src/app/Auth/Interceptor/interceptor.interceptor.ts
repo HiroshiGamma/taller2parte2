@@ -19,8 +19,12 @@ export const interceptorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>,
       next: (event) => {
         if (event instanceof HttpResponse) {
           const newToken = event.headers.get('Authorization')?.split(' ')[1];
+          const username = event.body?.username; // Ensure username is extracted from the response body
           if (newToken) {
             localStorage.setItem('token', newToken);
+          }
+          if (username) {
+            localStorage.setItem('username', username);
           }
         }
       },

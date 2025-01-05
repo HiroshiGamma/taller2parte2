@@ -1,25 +1,26 @@
 import { Component } from '@angular/core';
-import { AdminServiceService } from '../../services/admin-service.service';
+import { AdminService } from '../../services/admin-service.service';
 import { AlertComponent } from '../../../Auth/Components/alert/alert.component';
 import { NavbarComponent } from '../../../_Shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-enable-disable-client',
   templateUrl: './enable-disable-client.component.html',
-  styleUrl: './enable-disable-client.component.css',
+  styleUrls: ['./enable-disable-client.component.css'],
   imports: [AlertComponent, NavbarComponent]
 })
 export class EnableDisableClientComponent {
   alertMessage: string = '';
 
-  constructor(private adminService: AdminServiceService) {}
+  constructor(private adminService: AdminService) {}
 
-  enableDisableUser(rut: string, enable: boolean) {
-    this.adminService.enableDisableUser(rut, enable).subscribe(response => {
+  async enableDisableUser(rut: string, enable: boolean) {
+    try {
+      const response = await this.adminService.enableDisableUser(rut, enable);
       console.log(response);
       this.alertMessage = `User ${enable ? 'enabled' : 'disabled'} successfully.`;
-    }, error => {
+    } catch (error) {
       this.alertMessage = `Error: Invalid RUT or user not found.`;
-    });
+    }
   }
 }

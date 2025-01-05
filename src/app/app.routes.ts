@@ -60,6 +60,21 @@ export const routes: Routes = [
             ]
   },
   {
+    path: 'changepassword',
+    loadComponent: () => import('../app/User/pages/changepassword-page/changepassword-page.component').then(m => m.ChangepasswordPageComponent),
+    canActivate: [normalUserGuard],
+  },
+  {
+    path: 'changeprofile',
+    loadComponent: () => import('../app/User/pages/changeprofile-page/changeprofile-page.component').then(m => m.ChangeprofilePageComponent),
+    canActivate: [normalUserGuard],
+  },
+  {
+    path: 'deleteuser',
+    loadComponent: () => import('../app/User/pages/delete-page/delete-page.component').then(m => m.DeletePageComponent),
+    canActivate: [normalUserGuard],
+  },
+  {
     path: 'cart',
     loadComponent: () => import('../app/Cart/pages/view-cart/view-cart.component').then(m => m.ViewCartComponent),
     pathMatch: 'full'

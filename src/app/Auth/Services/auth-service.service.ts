@@ -21,7 +21,7 @@ export class AuthServiceService {
       try{
         const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'login', form));
         this.localStorageService.setVariable('token', response.token); 
-        this.localStorageService.setVariable('user', response.username);
+        this.localStorageService.setVariable('username', response.username); // Ensure the key is 'username'
         this.localStorageService.setVariable('role', response.role);
         this.router.navigate(['/home']); 
         return Promise.resolve(response);

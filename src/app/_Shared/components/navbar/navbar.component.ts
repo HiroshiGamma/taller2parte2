@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../../Auth/Services/local-storage.service';
 import { Router } from '@angular/router';
 
@@ -10,22 +10,32 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   private LSservice = inject(LocalStorageService);
   isLogged: boolean = this.LSservice.getVariable('token') ? true : false;
   role: string = this.LSservice.getVariable('role');
+  username: string = '';
   isDropdownOpen: boolean = false;
 
-  constructor (private router: Router) {}
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    if (this.isLogged) {
+      this.username = this.LSservice.getVariable('username');
+      console.log('Username:', this.username); // Log the username to the console
+    }
+  }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   logout() {
-   this.LSservice.clearAll();
-   this.router.navigate(['login']);
+    this.LSservice.clearAll();
+    this.router.navigate(['login']);
   }
 
+  updateUsername() {
+    this.username = this.LSservice.getVariable('username');
+  }
 }

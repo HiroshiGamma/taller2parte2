@@ -3,14 +3,15 @@
     <a href="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
       <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Shop</span>
     </a>
-    <div class="flex md:order-2 relative">
+    <div class="flex items-center md:order-2 relative">
+      <span *ngIf="isLogged" class="text-white mr-4">Hello, {{ username }}</span>
       <button id="dropdownButton" (click)="toggleDropdown()" class="text-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1 mb-4">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8l4 4 4-4"/>
         </svg>
         <span class="sr-only">Open user menu</span>
       </button>
-      <div id="dropdownMenu" [ngClass]="{'hidden': !isDropdownOpen}" class="absolute right-0 mt-6 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+      <div id="dropdownMenu" [ngClass]="{'hidden': !isDropdownOpen}" class="absolute right-0 mt-40 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 z-50">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownButton">
           <li>
             <a href="/home" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Productos</a>

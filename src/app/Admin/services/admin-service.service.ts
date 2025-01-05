@@ -1,32 +1,55 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable, firstValueFrom } from 'rxjs';
 import { ResponseAPIUser } from '../Interface/ResponseApiUserList';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminServiceService {
+export class AdminService {
   private apiUrl = 'http://localhost:5042/api/Account';
+  public errors: string[] = [];
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) { }
-
-  getUsers(): Observable<ResponseAPIUser> {
+  async getUsers(): Promise<ResponseAPIUser> {
     const url = `${this.apiUrl}/users`;
-    return this.http.get<ResponseAPIUser>(url);
+    try {
+      const response = await firstValueFrom(this.http.get<ResponseAPIUser>(url));
+      return Promise.resolve(response);
+    } catch (error) {
+      console.log('Error in the get users service', error);
+      let e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Unknown Error');
+      return Promise.reject(this.errors);
+    }
   }
 
-  getUsersByName(name: string): Observable<ResponseAPIUser> {
+  async getUsersByName(name: string): Promise<ResponseAPIUser> {
     const url = `${this.apiUrl}/users?name=${name}`;
-    return this.http.get<ResponseAPIUser>(url);
+    try {
+      const response = await firstValueFrom(this.http.get<ResponseAPIUser>(url));
+      return Promise.resolve(response);
+    } catch (error) {
+      console.log('Error in the get users by name service', error);
+      let e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Unknown Error');
+      return Promise.reject(this.errors);
+    }
   }
 
-  enableDisableUser(rut: string, enable: boolean): Observable<any> {
+  async enableDisableUser(rut: string, enable: boolean): Promise<any> {
     const url = `${this.apiUrl}/enable-disable/${rut}`;
     const body = enable.toString();
-    return this.http.put<any>(url, body, {
-      headers: { 'Content-Type': 'application/json' }
-    });
+    try {
+      const response = await firstValueFrom(this.http.put<any>(url, body, {
+        headers: { 'Content-Type': 'application/json' }
+      }));
+      return Promise.resolve(response);
+    } catch (error) {
+      console.log('Error in the enable/disable user service', error);
+      let e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Unknown Error');
+      return Promise.reject(this.errors);
+    }
   }
-
 }

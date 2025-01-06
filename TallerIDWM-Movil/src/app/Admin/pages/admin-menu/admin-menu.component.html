@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+<!-- Contenedor de botones -->
+<div class="flex flex-col gap-6 px-6 md:px-16">
+  <!-- Botón Ingresar -->
+  <div class="bg-gray-200 p-6 rounded-lg shadow-md text-center">
+    <button (click)="addProduct()" class="bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-lg">
+      Ingresar nuevo producto
+    </button>
+  </div>
+  <!-- Botón Mostrar Usuarios -->
+  <div class="bg-gray-200 p-6 rounded-lg shadow-md text-center">
+    <button (click)="toggleUsers()" class="bg-green-700 hover:bg-green-800 text-white font-medium py-2 px-4 rounded-lg">
+      Mostrar Usuarios
+    </button>
+  </div>
+  <!-- Botón Habilitar/Deshabilitar Usuario -->
+  <div class="bg-gray-200 p-6 rounded-lg shadow-md text-center">
+    <button (click)="navigateToEnableDisable()" class="bg-red-700 hover:bg-red-800 text-white font-medium py-2 px-4 rounded-lg">
+      Habilitar/Deshabilitar Usuario
+    </button>
+  </div>
+  <!-- Botón Ver Recibos -->
+  <div class="bg-gray-200 p-6 rounded-lg shadow-md text-center">
+    <button (click)="navigateToReceiptsList()" class="bg-yellow-300 hover:bg-yellow-400 text-white font-medium py-2 px-4 rounded-lg">
+      Ver recibos
+    </button>
+  </div>
+</div>

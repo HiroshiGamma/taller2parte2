@@ -1,0 +1,6 @@
+<div *ngIf="message" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+  <span class="block sm:inline">{{ message }}</span>
+  <button type="button" class="absolute top-0 right-0 mt-2 mr-2" (click)="message=''">
+    <span class="text-red-500">&times;</span>
+  </button>
+</div>

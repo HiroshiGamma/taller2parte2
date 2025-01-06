@@ -1,0 +1,9 @@
+<app-navbar></app-navbar>
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg p-6 bg-gray-50">
+  <h2 class="text-2xl font-bold mb-4 text-gray-900">Usuarios Registrados</h2>
+  <div class="mb-4 flex items-center">
+    <input type="text" [(ngModel)]="filterName" placeholder="Filtrar por nombre" class="form-input rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+    <button (click)="filterUsersByName()" class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300">Filtrar</button>
+  </div>
+  <app-users-cards [users]="users"></app-users-cards>
+</div>

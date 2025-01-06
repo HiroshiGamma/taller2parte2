@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+<div class="flex justify-center items-center min-h-screen pt-16">
+  <div *ngIf="!showRegisterForm">
+    <app-login></app-login>
+    <button (click)="toggleRegisterForm()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md">Registrarse</button>
+  </div>
+  <div *ngIf="showRegisterForm" class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+    <app-register></app-register>
+    <button (click)="toggleRegisterForm()" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Volver al Inicio de Sesión</button>
+  </div>
+</div>

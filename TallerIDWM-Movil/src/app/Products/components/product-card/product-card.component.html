@@ -1,0 +1,31 @@
+<div href="" class="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {{product.name}} | {{product.type}}
+  </h5>
+  <img src = {{product.imageUrl}} class="" alt="Imagen del producto"/>
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> $ {{product.price}}
+  </h5>
+  <div>
+    <div *ngIf="product.stock > 0">
+      <button (click)="addToCart()" class="px-4 py-2 mt-2 text-sm font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:bg-green-400">
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+  <div class="flex gap-2" *ngIf="role == 'Admin'">
+    <button 
+      (click)="onEdit()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Editar
+    </button>
+    <button 
+      (click)="onDelete()"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Eliminar
+    </button>
+  </div>
+</div>
+
+

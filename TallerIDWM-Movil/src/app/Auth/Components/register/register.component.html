@@ -1,0 +1,54 @@
+<form (ngSubmit)="register()" [formGroup]="form" class="space-y-6">
+  <div>
+    <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Nombre de usuario</label>
+    <input type="text" formControlName="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nombre de usuario" required>
+    <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="text-red-500 text-sm">
+      El nombre de usuario debe tener entre 8 y 255 caracteres y consistir solo en caracteres alfabéticos.
+    </div>
+  </div>
+  <div>
+    <label for="rut" class="block mb-2 text-sm font-medium text-gray-900">RUT</label>
+    <input type="text" formControlName="rut" id="rut" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="RUT" required>
+    <div *ngIf="form.get('rut')?.invalid && form.get('rut')?.touched" class="text-red-500 text-sm">
+      El RUT debe tener menos de 10 caracteres.
+    </div>
+  </div>
+  <div>
+    <label for="birthdate" class="block mb-2 text-sm font-medium text-gray-900">Fecha de nacimiento (dd-mm-yyyy)</label>
+    <input type="text" formControlName="birthdate" id="birthdate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Fecha de nacimiento (dd-mm-yyyy)" required>
+    <div *ngIf="form.get('birthdate')?.invalid && form.get('birthdate')?.touched" class="text-red-500 text-sm">
+      Por favor, ingrese una fecha de nacimiento válida en el formato dd-mm-yyyy.
+    </div>
+  </div>
+  <div>
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Correo electrónico</label>
+    <input type="email" formControlName="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Correo electrónico" required>
+    <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-red-500 text-sm">
+      Por favor, ingrese una dirección de correo electrónico válida.
+    </div>
+  </div>
+  <div>
+    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Género</label>
+    <select formControlName="gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+      <option value="masculino">Masculino</option>
+      <option value="femenino">Femenino</option>
+      <option value="otro">Otro</option>
+      <option value="prefiero no decirlo">Prefiero no decirlo</option>
+    </select>
+    <div *ngIf="form.get('gender')?.invalid && form.get('gender')?.touched" class="text-red-500 text-sm">
+      Por favor, seleccione una opción de género válida.
+    </div>
+  </div>
+  <div>
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+    <input type="password" formControlName="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Contraseña" required>
+    <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-red-500 text-sm">
+      La contraseña debe tener entre 8 y 20 caracteres.
+    </div>
+  </div>
+  <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Registrarse</button>
+</form>
+<div *ngIf="registrationAlert" class="mt-4 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+  {{ errorMessage }}
+  <button (click)="closeAlert()" class="ml-2 text-red-700 hover:underline">Cerrar</button>
+</div>

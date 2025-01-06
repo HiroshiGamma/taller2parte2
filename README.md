@@ -1,59 +1,67 @@
-# Frontend
+## Funcionamiento
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Este proyecto es una aplicación web desarrollada con Angular. Permite a los usuarios interactuar con una interfaz dinámica y receptiva para utilizar una tienda de productos de vestimenta. La aplicación se compone de varios componentes que se comunican entre sí para proporcionar una experiencia de usuario fluida.
 
-## Development server
+## Requerimientos
 
-To start a local development server, run:
+Para ejecutar este proyecto, necesitarás tener instalados los siguientes programas:
 
+- [Node.js](https://nodejs.org/) (versión 14.x o superior)
+- [Angular CLI](https://angular.io/cli) (versión 19.0.6 o superior)
+- Un navegador web moderno (como Google Chrome, Mozilla Firefox, Microsoft Edge, etc.)
+
+### Estilos
+
+Este proyecto utiliza [Tailwind CSS](https://tailwindcss.com/) para la gestión de estilos y [Flowbite](https://flowbite.com/) para componentes UI adicionales. Tailwind CSS es un framework de CSS utilitario que permite un diseño rápido y eficiente. Flowbite proporciona componentes preconstruidos que se integran perfectamente con Tailwind CSS.
+
+### API
+
+Este proyecto se integra con una API externa para obtener y enviar datos. La API utilizada es http://localhost:5042/api, que proporciona endpoints para el uso de la tienda.
+
+## Instalación
+
+Para instalar las dependencias del proyecto, sigue estos pasos:
+
+1. Clona el repositorio en tu máquina local:
+```bash
+git clone https://github.com/HiroshiGamma/taller2parte2.git
+```
+
+2. Navega al directorio del proyecto en caso de no estarlo:
+```bash
+cd frontend 
+```
+
+3. Instala las dependencias del proyecto:
+```bash
+npm install
+```
+
+4. Inicia el servidor de desarrollo:
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+5. Abre tu navegador y navega a `http://localhost:4200/` para ver la aplicación en funcionamiento.
 
-## Code scaffolding
+## Ejecución de pruebas unitarias
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para ejecutar pruebas unitarias con el ejecutor de pruebas [Karma](https://karma-runner.github.io), usa el siguiente comando:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Ejecución de pruebas de extremo a extremo
 
-For end-to-end (e2e) testing, run:
+Para pruebas de extremo a extremo (e2e), ejecuta:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI no incluye un marco de pruebas de extremo a extremo por defecto. Puedes elegir uno que se adapte a tus necesidades.
 
-## Additional Resources
+## Recursos Adicionales
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Para más información sobre el uso de Angular CLI, incluyendo referencias detalladas de comandos, visita la página [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).

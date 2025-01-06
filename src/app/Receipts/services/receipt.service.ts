@@ -14,47 +14,60 @@ export class ReceiptService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Create a new receipt
+   * Crear un nuevo recibo
+   * @param receipt - Datos parciales del recibo a crear
+   * @returns Observable con el recibo creado
    */
   createReceipt(receipt: Partial<ReceiptDto>): Observable<ReceiptDto> {
-    return this.http.post<ReceiptDto>(`${this.baseUrl}/CreateReceipt`, receipt);
+    return this.http.post<ReceiptDto>(`${this.baseUrl}/CrearRecibo`, receipt);
   }
 
   /**
-   * Get a specific receipt by ID
+   * Obtener un recibo específico por ID
+   * @param id - ID del recibo a obtener
+   * @returns Observable con el recibo obtenido
    */
   getReceipt(id: number): Observable<ReceiptDto> {
-    return this.http.get<ReceiptDto>(`${this.baseUrl}/GetReceipt/${id}`);
+    return this.http.get<ReceiptDto>(`${this.baseUrl}/ObtenerRecibo/${id}`);
   }
 
   /**
-   * Get paginated list of receipts with optional filters
+   * Obtener una lista paginada de recibos con filtros opcionales
+   * @param query - Objeto de consulta con los parámetros de paginación y filtros
+   * @returns Observable con la respuesta paginada de recibos
    */
   getReceipts(query: QueryObject): Observable<PaginatedResponse<ReceiptDto>> {
     let params = new HttpParams()
-      .set('pageNumber', query.pageNumber.toString())
-      .set('pageSize', query.pageSize.toString());
+      .set('numeroPagina', query.pageNumber.toString())
+      .set('tamañoPagina', query.pageSize.toString());
 
     if (query.name) {
-      params = params.set('name', query.name);
+      params = params.set('nombre', query.name);
     }
 
     if (query.isDescending !== undefined) {
-      params = params.set('isDescending', query.isDescending.toString());
+      params = params.set('esDescendente', query.isDescending.toString());
     }
 
-    return this.http.get<PaginatedResponse<ReceiptDto>>(`${this.baseUrl}/receipts`, { params });
+    return this.http.get<PaginatedResponse<ReceiptDto>>(`${this.baseUrl}/recibos`, { params });
   }
 
   /**
-   * Get all receipts for a specific user
+   * Obtener todos los recibos de un usuario específico
+   * @param userRut - RUT del usuario
+   * @returns Observable con la lista de recibos del usuario
    */
   getUserReceipts(userRut: string): Observable<ReceiptDto[]> {
-    return this.http.get<ReceiptDto[]>(`${this.baseUrl}/user/${userRut}`);
+    return this.http.get<ReceiptDto[]>(`${this.baseUrl}/usuario/${userRut}`);
   }
 
+  /**
+   * Descargar un recibo específico por ID
+   * @param id - ID del recibo a descargar
+   * @returns Observable con el Blob del recibo descargado
+   */
   downloadReceipt(id: number): Observable<Blob> {
-    return this.http.get(`${this.baseUrl}/download/${id}`, {
+    return this.http.get(`${this.baseUrl}/descargar/${id}`, {
       responseType: 'blob'
     });
   }

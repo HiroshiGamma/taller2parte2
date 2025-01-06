@@ -11,6 +11,12 @@ export class AdminGuard implements CanActivate {
   constructor(private router : Router,
     private localService : LocalStorageService) {}
 
+  /**
+   * Verifica si el usuario puede activar la ruta.
+   * @param route Información sobre la ruta activada.
+   * @param state Estado del router en el momento de la activación.
+   * @returns booleano indicando si el usuario puede activar la ruta.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -24,7 +30,7 @@ export class AdminGuard implements CanActivate {
         }
     }
     
-    // Redirect to home page or unauthorized page if user is not admin
+    // Envia a la pagina not found si no esta autorizado para acceder a la ruta
     this.router.navigate(['/not_found']);
     return false;
   }

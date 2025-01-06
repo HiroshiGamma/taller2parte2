@@ -27,21 +27,33 @@ export class CartComponent implements OnInit{
     this.cartService.loadCart();
   }
 
+  /**
+   * Añade un producto al carrito.
+   * @param productId El ID del producto a añadir.
+   */
   async addToCart(productId: string) {
     try {
       await this.cartService.addToCart(productId);
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Error al añadir al carrito:', error);
     }
   }
 
+  /**
+   * Elimina un producto del carrito.
+   * @param productId El ID del producto a eliminar.
+   */
   async removeFromCart(productId: string) {
     try {
       await this.cartService.removeFromCart(productId);
     } catch (error) {
-      console.error('Error removing from cart:', error);
+      console.error('Error al eliminar del carrito:', error);
     }
   }
+
+  /**
+   * Navega a la página de pago.
+   */
   checkOut() 
   {
     this.router.navigate(['checkout'])

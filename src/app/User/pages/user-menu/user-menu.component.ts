@@ -11,14 +11,23 @@ import { NavbarComponent } from '../../../_Shared/components/navbar/navbar.compo
 export class UserMenuComponent {
   constructor(private router: Router) {}
 
+  /**
+   * Navega a la página de cambiar contraseña.
+   */
   navigateToChangePassword() {
     this.router.navigate(['/changepassword']);
   }
 
+  /**
+   * Navega a la página de cambiar perfil.
+   */
   navigateToChangeProfile() {
     this.router.navigate(['/changeprofile']);
   }
 
+  /**
+   * Navega a la página de eliminar cuenta de usuario.
+   */
   navigateToDeleteUser() {
     this.router.navigate(['/deleteuser']);
   }

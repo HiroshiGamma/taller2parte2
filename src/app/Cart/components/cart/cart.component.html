@@ -1,9 +1,9 @@
 <div class="container mx-auto p-4">
-    <h2 class="text-2xl font-bold mb-4">Shopping Cart</h2>
+    <h2 class="text-2xl font-bold mb-4">Carrito de Compras</h2>
     
     <ng-container *ngIf="cart$ | async as cart">
       <div *ngIf="cart.items.length === 0" class="text-center py-8">
-        Your cart is empty
+        Tu carrito está vacío
       </div>
 
       <div *ngFor="let item of cart.items" class="flex items-center border-b py-4">
@@ -33,7 +33,7 @@
         
         <div class="mt-6 flex justify-end">
           <button (click)="checkOut()" class="bg-blue-500 text-white px-4 py-2 rounded">
-            Checkout
+            Pagar
           </button>
         </div>
       </div>

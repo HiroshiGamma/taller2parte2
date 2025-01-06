@@ -32,33 +32,55 @@ export class AddProductproductFormComponent implements OnInit{
       stock: ['', Validators.required],
     });
   }
+
+  /**
+   * Valida si el campo 'name' es inválido y ha sido tocado.
+   */
   get nameValidate() 
   {
     return this.productForm.get('name')?.invalid && this.productForm.get('name')?.touched;
   }
+
+  /**
+   * Valida si el campo 'type' es inválido y ha sido tocado.
+   */
   get typeValidate() 
   {
     return this.productForm.get('type')?.invalid && this.productForm.get('type')?.touched;
   }
+
+  /**
+   * Valida si el campo 'price' es inválido y ha sido tocado.
+   */
   get priceValidate() 
   {
     return this.productForm.get('price')?.invalid && this.productForm.get('price')?.touched;
   }
+
+  /**
+   * Valida si el campo 'stock' es inválido y ha sido tocado.
+   */
   get stockValidate() 
   {
     return this.productForm.get('stock')?.invalid && this.productForm.get('stock')?.touched;
   }
 
+  /**
+   * Maneja la selección de un archivo.
+   * @param file El archivo seleccionado.
+   */
   onFileSelected(file: File) {
     this.selectedFile = file;
   }
 
+  /**
+   * Envía el formulario para crear un nuevo producto.
+   */
   async submit() {
     if (this.productForm.invalid || !this.selectedFile) return;
 
     try {
       const formData = new FormData();
-      // Add all form fields to FormData
       formData.append('name', this.productForm.value.name);
       formData.append('type', this.productForm.value.type);
       formData.append('price', this.productForm.value.price);
@@ -71,7 +93,7 @@ export class AddProductproductFormComponent implements OnInit{
         this.error = false;
         this.errorMessage = [];
         console.log('Producto registrado: ', response);
-        alert("Producto creado con exito")
+        alert("Producto creado con éxito");
         this.productForm.reset();
       } else {
         this.error = true;

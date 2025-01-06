@@ -26,6 +26,11 @@ export class ChangeProfileComponent {
     });
   }
 
+  /**
+   * Envía el formulario para actualizar el perfil del usuario.
+   * Si el formulario es válido, intenta actualizar los datos del usuario
+   * y guarda el nombre actualizado en el almacenamiento local.
+   */
   async onSubmit() {
     if (this.profileForm.valid) {
       try {
@@ -33,13 +38,16 @@ export class ChangeProfileComponent {
         this.successMessage = 'Datos actualizados correctamente';
         this.updatedData = this.profileForm.value;
         this.localStorageService.setVariable('username', this.profileForm.value.name);
-        console.log('User updated successfully', response);
+        console.log('Usuario actualizado correctamente', response);
       } catch (error) {
-        console.error('Error updating user', error);
+        console.error('Error al actualizar el usuario', error);
       }
     }
   }
 
+  /**
+   * Navega a la página anterior.
+   */
   goBack() {
     this.location.back();
   }

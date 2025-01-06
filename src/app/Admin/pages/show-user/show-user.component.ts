@@ -19,21 +19,29 @@ export class ShowUserComponent implements OnInit {
 
   constructor(private adminService: AdminService) {}
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   * Obtiene la lista de usuarios desde el servicio de administración.
+   */
   async ngOnInit() {
     try {
       const data = await this.adminService.getUsers();
       this.users = data.users;
     } catch (error) {
-      console.error('Error fetching users', error);
+      console.error('Error al obtener los usuarios', error);
     }
   }
 
+  /**
+   * Método para filtrar usuarios por nombre.
+   * Obtiene la lista de usuarios filtrados desde el servicio de administración.
+   */
   async filterUsersByName() {
     try {
       const data = await this.adminService.getUsersByName(this.filterName);
       this.users = data.users;
     } catch (error) {
-      console.error('Error fetching users by name', error);
+      console.error('Error al obtener los usuarios por nombre', error);
     }
   }
 }

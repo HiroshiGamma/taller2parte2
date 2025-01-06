@@ -22,6 +22,10 @@ export class ReceiptDetailComponent {
     private receiptService: ReceiptService
   ) {}
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   * Obtiene el ID del recibo de los parámetros de la ruta y carga el recibo correspondiente.
+   */
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -29,6 +33,10 @@ export class ReceiptDetailComponent {
     }
   }
 
+  /**
+   * Carga el recibo con el ID especificado.
+   * @param id - ID del recibo a cargar.
+   */
   private loadReceipt(id: number) {
     this.loading = true;
     this.receiptService.getReceipt(id)
@@ -39,6 +47,10 @@ export class ReceiptDetailComponent {
       });
   }
 
+  /**
+   * Descarga el recibo actual en formato PDF.
+   * Crea un enlace temporal para descargar el archivo PDF.
+   */
   downloadPdf() {
     if (this.receipt) {
       this.receiptService.downloadReceipt(this.receipt.id)

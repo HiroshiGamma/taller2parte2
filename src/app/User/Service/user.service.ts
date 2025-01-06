@@ -14,6 +14,11 @@ export class UserService {
 
   constructor() { }
 
+  /**
+   * Actualiza la información del usuario.
+   * @param form - Datos del formulario de actualización del usuario.
+   * @returns Una promesa que se resuelve con la respuesta del servidor o se rechaza con un error.
+   */
   async updateUser(form: any): Promise<any> {
     try {
       const response = await firstValueFrom(this.http.put<any>(this.apiUrl + 'update-user', form));
@@ -28,6 +33,11 @@ export class UserService {
     }
   }
 
+  /**
+   * Actualiza la contraseña del usuario.
+   * @param form - Datos del formulario de actualización de la contraseña.
+   * @returns Una promesa que se resuelve con la respuesta del servidor o se rechaza con un error.
+   */
   async updatePassword(form: any): Promise<any> {
     try {
       const response = await firstValueFrom(this.http.put<any>(this.apiUrl + 'update-password', form));
@@ -42,10 +52,14 @@ export class UserService {
     }
   }
 
+  /**
+   * Elimina la cuenta del usuario.
+   * @returns Una promesa que se resuelve con la respuesta del servidor o se rechaza con un error.
+   */
   async deleteUser(): Promise<any> {
     try {
       const response = await firstValueFrom(this.http.delete<any>(this.apiUrl + 'delete-user'));
-      this.localStorageService.clearAll(); // Clear all user data
+      this.localStorageService.clearAll(); // Limpiar todos los datos del usuario
       return Promise.resolve(response);
     } catch (error) {
       console.log('Error en el servicio de eliminación de usuario', error);

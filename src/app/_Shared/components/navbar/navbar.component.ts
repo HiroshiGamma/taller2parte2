@@ -26,15 +26,24 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Alterna el estado del menú desplegable.
+   */
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  /**
+   * Cierra la sesión del usuario y redirige a la página de inicio de sesión.
+   */
   logout() {
     this.LSservice.clearAll();
     this.router.navigate(['login']);
   }
 
+  /**
+   * Actualiza el nombre de usuario desde el servicio de almacenamiento local.
+   */
   updateUsername() {
     this.username = this.LSservice.getVariable('username');
   }

@@ -19,6 +19,9 @@ export class LoginRegisterComponent {
 
   constructor(public authService: AuthServiceService, private router: Router) {}
 
+  /**
+   * Alterna entre el formulario de inicio de sesión y el formulario de registro.
+   */
   toggleRegisterForm() {
     this.showRegisterForm = !this.showRegisterForm;
   }

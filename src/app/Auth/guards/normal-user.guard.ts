@@ -10,6 +10,12 @@ export class normalUserGuard implements CanActivate {
   constructor(private router : Router,
     private localService : LocalStorageService) {}
 
+  /**
+   * Verifica si el usuario puede activar la ruta.
+   * @param route Información sobre la ruta activada.
+   * @param state Estado del router en el momento de la activación.
+   * @returns booleano indicando si el usuario puede activar la ruta.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-6">Purchase History</h2>
+    <h2 class="text-2xl font-bold mb-6">Historial de Compras</h2>
   
     <div *ngIf="loading" class="text-center py-8">
       <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
@@ -11,7 +11,7 @@
     </div>
   
     <div *ngIf="!loading && receipts.length === 0" class="text-center py-8 text-gray-600">
-      No receipts found.
+      No se encontraron recibos.
     </div>
   
     <div *ngIf="!loading && receipts.length > 0" class="space-y-4">
@@ -20,24 +20,23 @@
         [receipt]="receipt"
       ></app-receipt-card>
   
-      <!-- Simple Pagination -->
+      <!-- Paginación Simple -->
       <div class="flex justify-center gap-2 mt-6">
         <button
           (click)="changePage(currentPage - 1)"
           [disabled]="currentPage === 1"
           class="px-4 py-2 bg-blue-600 text-white rounded-md disabled:bg-gray-300"
         >
-          Previous
+          Anterior
         </button>
-        <span class="py-2 px-4">Page {{ currentPage }}</span>
+        <span class="py-2 px-4">Página {{ currentPage }}</span>
         <button
           (click)="changePage(currentPage + 1)"
           [disabled]="receipts.length < pageSize"
           class="px-4 py-2 bg-blue-600 text-white rounded-md disabled:bg-gray-300"
         >
-          Next
+          Siguiente
         </button>
       </div>
     </div>
   </div>
-  

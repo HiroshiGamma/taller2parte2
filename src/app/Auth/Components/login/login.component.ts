@@ -30,6 +30,9 @@ export class LoginComponent {
     this.formulario();
   }
 
+  /**
+   * Inicializa el formulario con validaciones.
+   */
   formulario() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,20 +40,29 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Valida si el campo de email es inválido y ha sido tocado.
+   */
   get emailValidate() {
     return this.form.get('email')?.invalid && this.form.get('email')?.touched;
   }
 
+  /**
+   * Valida si el campo de contraseña es inválido y ha sido tocado.
+   */
   get passwordValidate() {
     return this.form.get('password')?.invalid && this.form.get('password')?.touched;
   }
 
+  /**
+   * Maneja el proceso de inicio de sesión.
+   */
   async login() {
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(control => {
         control.markAsTouched();
       });
-      this.errorMessage = 'Please fill out the form correctly.';
+      this.errorMessage = 'Por favor, complete el formulario correctamente.';
       this.loginAlert = true;
       return;
     }
@@ -61,19 +73,21 @@ export class LoginComponent {
       if (response.token) {
         this.localStorage.setVariable('token', response.token);
         this.localStorage.setVariable('user', response.username);
-        console.log('Login Successful', response.username);
+        console.log('Inicio de sesión exitoso', response.username);
       } else {
-        this.errorMessage = 'Invalid password.';
+        this.errorMessage = 'Contraseña inválida.';
         this.loginAlert = true;
       }
 
     } catch (error: any) {
-      this.errorMessage = 'Invalid email or password.';
+      this.errorMessage = 'Correo electrónico o contraseña inválidos.';
       this.loginAlert = true;
     }
   }
 
-  // Method to close the alert
+  /**
+   * Método para cerrar la alerta.
+   */
   closeAlert() {
     this.errorMessage = '';
     this.loginAlert = false;

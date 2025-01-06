@@ -1,7 +1,7 @@
 <div class="bg-white rounded-lg shadow-md p-6 mb-4">
     <div class="flex justify-between items-start mb-4">
       <div>
-        <h3 class="text-lg font-semibold">Receipt #{{ receipt.id }}</h3>
+        <h3 class="text-lg font-semibold">Recibo #{{ receipt.id }}</h3>
         <p class="text-gray-600">{{ receipt.date | date:'medium' }}</p>
       </div>
       <span class="text-lg font-bold text-green-600">
@@ -12,7 +12,7 @@
     <div class="mb-4">
       <p class="text-gray-700"><strong>RUT:</strong> {{ receipt.userRut }}</p>
       <p class="text-gray-700">
-        <strong>Address:</strong> {{ receipt.street }}, {{ receipt.commune }}, {{ receipt.city }}, {{ receipt.country }}
+        <strong>Dirección:</strong> {{ receipt.street }}, {{ receipt.commune }}, {{ receipt.city }}, {{ receipt.country }}
       </p>
     </div>
   
@@ -20,7 +20,7 @@
       (click)="toggleDetails = !toggleDetails"
       class="text-blue-600 hover:text-blue-800 mb-2"
     >
-      {{ toggleDetails ? 'Hide' : 'Show' }} Items
+      {{ toggleDetails ? 'Ocultar' : 'Mostrar' }} Ítems
     </button>
   
     <div *ngIf="toggleDetails" class="mt-4">
@@ -28,9 +28,9 @@
         <table class="w-full">
           <thead>
             <tr class="text-left text-gray-600">
-              <th class="pb-2">Product ID</th>
-              <th class="pb-2">Quantity</th>
-              <th class="pb-2">Price</th>
+              <th class="pb-2">ID del Producto</th>
+              <th class="pb-2">Cantidad</th>
+              <th class="pb-2">Precio</th>
               <th class="pb-2 text-right">Total</th>
             </tr>
           </thead>

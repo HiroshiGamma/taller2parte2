@@ -11,5 +11,6 @@ import { CommonModule } from '@angular/common';
 export class ReceiptCardComponent {
   @Input() receipt!: ReceiptDto;
 
+  // Propiedad para alternar la visibilidad de los detalles del recibo
   toggleDetails = false;
 }

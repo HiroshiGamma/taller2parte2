@@ -29,6 +29,10 @@ export class ReceiptListComponent {
     this.loadReceipts();
   }
 
+  /**
+   * Carga los recibos desde el servicio de recibos.
+   * Configura el estado de carga y maneja errores si ocurren.
+   */
   async loadReceipts() {
     this.loading = true;
     this.error = '';
@@ -45,22 +49,34 @@ export class ReceiptListComponent {
       this.receipts = response?.items || [];
       this.totalItems = response?.totalCount || 0;
     } catch (err: any) {
-      this.error = err.message || 'Failed to load receipts';
+      this.error = err.message || 'Error al cargar los recibos';
     } finally {
       this.loading = false;
     }
   }
 
+  /**
+   * Realiza una búsqueda de recibos.
+   * Reinicia la página actual a 1 y carga los recibos.
+   */
   async search() {
     this.currentPage = 1;
     await this.loadReceipts();
   }
 
+  /**
+   * Cambia el orden de clasificación de los recibos.
+   * Alterna entre ascendente y descendente y carga los recibos.
+   */
   async sort() {
     this.sortDescending = !this.sortDescending;
     await this.loadReceipts();
   }
 
+  /**
+   * Cambia la página actual y carga los recibos correspondientes.
+   * @param newPage El número de la nueva página.
+   */
   async changePage(newPage: number) {
     this.currentPage = newPage;
     await this.loadReceipts();

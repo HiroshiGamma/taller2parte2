@@ -25,6 +25,9 @@ export class RegisterComponent {
     this.createForm();
   }
 
+  /**
+   * Crea el formulario de registro con validaciones.
+   */
   createForm() {
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(255), Validators.pattern('^[a-zA-Z\\s]+$')]],
@@ -36,6 +39,11 @@ export class RegisterComponent {
     });
   }
 
+  /**
+   * Valida la fecha de nacimiento.
+   * @param control Control del formulario que contiene la fecha de nacimiento.
+   * @returns null si la fecha es válida, de lo contrario un objeto con el error.
+   */
   validateBirthdate(control: any) {
     const birthdate = control.value;
     const [day, month, year] = birthdate.split('-').map((val: string) => parseInt(val, 10));
@@ -43,12 +51,15 @@ export class RegisterComponent {
     return date < new Date() ? null : { invalidDate: true };
   }
 
+  /**
+   * Registra un nuevo usuario.
+   */
   async register() {
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(control => {
         control.markAsTouched();
       });
-      this.errorMessage = 'Please fill out the form correctly.';
+      this.errorMessage = 'Por favor, complete el formulario correctamente.';
       this.registrationAlert = true;
       return;
     }
@@ -66,15 +77,18 @@ export class RegisterComponent {
         this.localStorage.setVariable('role', response.role); // Save role
         this.router.navigate(['/user_menu']);
       } else {
-        this.errorMessage = 'Registration failed.';
+        this.errorMessage = 'Registro fallido.';
         this.registrationAlert = true;
       }
     } catch (error: any) {
-      this.errorMessage = 'Registration error.';
+      this.errorMessage = 'Error en el registro.';
       this.registrationAlert = true;
     }
   }
 
+  /**
+   * Cierra la alerta de error.
+   */
   closeAlert() {
     this.errorMessage = '';
     this.registrationAlert = false;

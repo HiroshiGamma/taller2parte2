@@ -37,6 +37,10 @@ export class CheckOutComponent implements OnInit{
 
   ngOnInit(): void {}
 
+  /**
+   * Maneja el envío del formulario para el proceso de compra.
+   * Valida el formulario, envía los datos al servidor y maneja la respuesta.
+   */
   async onSubmit() {
     if (this.checkoutForm.valid) {
       this.isLoading = true;
@@ -45,7 +49,7 @@ export class CheckOutComponent implements OnInit{
 
       try {
         const formData = new FormData();
-        // Add all form fields to FormData
+        // Añadir todos los campos del formulario a FormData
         formData.append('rut', this.checkoutForm.value.userRut);
         formData.append('country', this.checkoutForm.value.country);
         formData.append('city', this.checkoutForm.value.city);
@@ -58,12 +62,12 @@ export class CheckOutComponent implements OnInit{
         this.router.navigate(['/home']);
         this.checkoutForm.reset();
       } catch (err: any) {
-        this.error = err.message || 'Checkout failed. Please try again.';
+        this.error = err.message || 'La compra ha fallado. Por favor, inténtelo de nuevo.';
       } finally {
         this.isLoading = false;
       }
     } else {
-      this.error = 'Please fill in all required fields.';
+      this.error = 'Por favor, complete todos los campos requeridos.';
     }
   }
 }

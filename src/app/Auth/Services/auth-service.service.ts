@@ -16,16 +16,20 @@ export class AuthServiceService {
     private router = inject(Router);
     public localStorageService = inject(LocalStorageService);
   
-    async login(form: any): Promise<ResponseAPIUser>{
-  
-      try{
+    /**
+     * Inicia sesión con el formulario proporcionado.
+     * @param form El formulario de inicio de sesión.
+     * @returns Una promesa con la respuesta del usuario.
+     */
+    async login(form: any): Promise<ResponseAPIUser> {
+      try {
         const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'login', form));
         this.localStorageService.setVariable('token', response.token); 
-        this.localStorageService.setVariable('username', response.username); // Ensure the key is 'username'
+        this.localStorageService.setVariable('username', response.username); // Asegúrate de que la clave sea 'username'
         this.localStorageService.setVariable('role', response.role);
         this.router.navigate(['/home']); 
         return Promise.resolve(response);
-      }catch(error){
+      } catch (error) {
         console.log('Error en el servicio de login', error);
 
         let e = error as HttpErrorResponse;
@@ -35,16 +39,21 @@ export class AuthServiceService {
       }
     }
 
+    /**
+     * Registra un nuevo usuario con el formulario proporcionado.
+     * @param form El formulario de registro.
+     * @returns Una promesa con la respuesta del usuario.
+     */
     async register(form: any): Promise<ResponseAPIUser> {
       try {
         form.enabled = true;
         const [day, month, year] = form.birthdate.split('-').map((val: string) => parseInt(val, 10));
-        form.birthdate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`; // Ensure birthdate is in dd-mm-yyyy format
+        form.birthdate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`; // Asegúrate de que la fecha de nacimiento esté en formato dd-mm-yyyy
 
         const response = await firstValueFrom(this.http.post<ResponseAPIUser>(this.apiUrl + 'register', form));
         this.localStorageService.setVariable('token', response.token);
-        this.localStorageService.setVariable('username', response.username); // Save username
-        this.localStorageService.setVariable('role', response.role); // Save role
+        this.localStorageService.setVariable('username', response.username); // Guarda el nombre de usuario
+        this.localStorageService.setVariable('role', response.role); // Guarda el rol
         return Promise.resolve(response);
       } catch (error) {
         console.log('Error en el servicio de registro', error);
@@ -56,6 +65,9 @@ export class AuthServiceService {
       }
     }
 
+    /**
+     * Cierra la sesión del usuario.
+     */
     logout() {
         this.localStorageService.clearAll(); 
         this.router.navigate(['/']);

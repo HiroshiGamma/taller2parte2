@@ -32,20 +32,29 @@ export class ProductCardComponent {
     }
   }
 
+  /**
+   * Emitir evento para eliminar el producto
+   */
   onDelete() {
     this.delete.emit(this.product.id);
   }
 
+  /**
+   * Añadir el producto al carrito
+   */
   async addToCart() {
     try {
-      console.log('Adding product to cart:', this.product);
+      console.log('Añadiendo producto al carrito:', this.product);
       await this.cartService.addToCart(this.product.id);
-      console.log('Product added successfully');
+      console.log('Producto añadido exitosamente');
     } catch (error) {
-      console.error('Error in component when adding to cart:', error);
+      console.error('Error en el componente al añadir al carrito:', error);
     }
   }
 
+  /**
+   * Emitir evento para editar el producto
+   */
   onEdit() {
     this.edit.emit(this.product.id);
   }

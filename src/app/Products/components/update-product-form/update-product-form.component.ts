@@ -28,6 +28,9 @@ export class UpdateProductFormComponent {
     private router: Router
   ) {}
 
+  /**
+   * Inicializa el componente, carga el producto si hay un ID de producto en los parámetros de la ruta.
+   */
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.productId = params['id'];
@@ -38,6 +41,9 @@ export class UpdateProductFormComponent {
     });
   }
 
+  /**
+   * Inicializa el formulario con validadores requeridos.
+   */
   private initForm() {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -47,6 +53,9 @@ export class UpdateProductFormComponent {
     });
   }
 
+  /**
+   * Carga los datos del producto desde el servicio y llena el formulario con los valores actuales.
+   */
   async loadProduct() {
     console.log(this.productId)
     try {
@@ -65,10 +74,17 @@ export class UpdateProductFormComponent {
     }
   }
 
+  /**
+   * Maneja la selección de archivos desde el componente ImgDrop.
+   * @param file El archivo seleccionado.
+   */
   onFileSelected(file: File) {
     this.selectedFile = file;
   }
 
+  /**
+   * Envía el formulario para actualizar el producto. Verifica si el formulario es válido y si se han realizado cambios en el nombre o tipo del producto.
+   */
   async submit() {
     if (this.productForm.invalid) return;
 
@@ -93,12 +109,16 @@ export class UpdateProductFormComponent {
       console.log('Sending update with formData:', formData); // Debug log
       const response = await this.productService.UpdateProduct(this.productId, formData);
       console.log('Update response:', response);
-      alert("Se ha actualizado con exito el producto");
+      alert("Se ha actualizado con éxito el producto");
       this.router.navigate(['/home']);
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error('Error actualizando el producto:', error);
     }
   }
+
+  /**
+   * Navega de vuelta a la página principal.
+   */
   volver() 
   {
     this.router.navigate(['/home']);

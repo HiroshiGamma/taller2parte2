@@ -24,6 +24,10 @@ export class ChangePasswordComponent {
     });
   }
 
+  /**
+   * Maneja el envío del formulario para cambiar la contraseña.
+   * Verifica que las nuevas contraseñas coincidan y llama al servicio de usuario para actualizar la contraseña.
+   */
   async onSubmit() {
     if (this.changePasswordForm.valid) {
       const { currentPassword, newPassword, confirmPassword } = this.changePasswordForm.value;
@@ -50,6 +54,9 @@ export class ChangePasswordComponent {
     }
   }
 
+  /**
+   * Navega a la página anterior.
+   */
   goBack() {
     this.location.back();
   }

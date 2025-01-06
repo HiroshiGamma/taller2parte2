@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
 import { ResponseAPIGetAllProducts } from '../../interfaces/ResponseAPIGetAllProducts';
 import { QueryObjectProduct } from '../../interfaces/QueryObjectProduct';
@@ -32,6 +32,9 @@ export class ProductsListComponent implements OnInit{
   private productService = inject(ProductService);
 
 
+  /**
+   * Inicializa el componente obteniendo los productos.
+   */
   ngOnInit(): void 
   {
     this.ObtenerProductos();
@@ -39,6 +42,9 @@ export class ProductsListComponent implements OnInit{
 
   constructor(private router: Router) {}
 
+  /**
+   * Obtiene todos los productos del servicio y los almacena en el array de productos.
+   */
   ObtenerProductos() 
   {
     console.log('Obteniendo productos...');
@@ -61,6 +67,11 @@ export class ProductsListComponent implements OnInit{
     this.filteredArray = this.productsArray;
     return;
   }
+
+  /**
+   * Elimina un producto por su ID.
+   * @param productId - ID del producto a eliminar.
+   */
   async deleteProduct(productId: string) {
     try {
       if (confirm('¿Está seguro que desea eliminar este producto?')) {
@@ -86,6 +97,10 @@ export class ProductsListComponent implements OnInit{
       this.isLoading = false;
     }
   }
+
+  /**
+   * Filtra los productos por nombre.
+   */
   filterProductsByName() : void 
   {
     const query  = this.searchQuery.toLowerCase();
@@ -95,10 +110,14 @@ export class ProductsListComponent implements OnInit{
       .includes(query)
     );
   }
+
+  /**
+   * Filtra los productos por tipo.
+   */
   filterProductsByType() : void 
   {
     if (!this.searchType) {
-      this.filteredArray = this.productsArray; // Show all products if no type selected
+      this.filteredArray = this.productsArray; 
       return;
     }
     
@@ -107,28 +126,43 @@ export class ProductsListComponent implements OnInit{
     );
   }
 
+  /**
+   * Ordena los productos por precio.
+   */
   sortByPrice(): void {
-    this.isSortAscending = !this.isSortAscending; // Toggle sort direction
+    this.isSortAscending = !this.isSortAscending; // mostrar el orden contrario
     
     this.filteredArray.sort((a, b) => {
       if (this.isSortAscending) {
-        return a.price - b.price; // Ascending order
+        return a.price - b.price; // orden ascendente
       } else {
-        return b.price - a.price; // Descending order
+        return b.price - a.price; // orden descendente
       }
     });
   }
+
+  /**
+   * Navega a la página de edición del producto.
+   * @param productId - ID del producto a editar.
+   */
   onEditProduct(productId: string) {
     this.router.navigate([`/products/edit/${productId}`]);
     console.log(productId)
   }
 
+  /**
+   * Pagina los productos según la página actual y el tamaño de página.
+   */
   paginate(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.filteredArray = this.productsArray.slice(startIndex, endIndex);
   }
 
+  /**
+   * Cambia a la página especificada.
+   * @param page - Número de la página a la que se desea ir.
+   */
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;

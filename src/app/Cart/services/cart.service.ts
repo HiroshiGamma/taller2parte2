@@ -15,55 +15,70 @@ export class CartService {
   constructor(private http: HttpClient) {
     this.loadCart();
   }
-  // Load cart from backend
+
+  /**
+   * Carga el carrito desde el backend
+   */
   async loadCart() {
     try {
-      console.log('Loading cart...');
+      console.log('Cargando carrito...');
       const response = await firstValueFrom(
         this.http.get<CartDto>(this.baseUrl, {withCredentials: true})
       );
-      console.log('Cart loaded:', response);
+      console.log('Carrito cargado:', response);
       this.cartSubject.next(response);
     } catch (error) {
-      console.error('Error loading cart:', error);
+      console.error('Error cargando el carrito:', error);
     }
   }
 
-  // Get cart as observable
+  /**
+   * Obtiene el carrito como observable
+   */
   getCart() {
     return this.cartSubject.asObservable();
   }
 
-  // Add item to cart
+  /**
+   * Añade un producto al carrito
+   * @param productId - ID del producto a añadir
+   */
   async addToCart(productId: string) {
     try {
-      console.log('Adding product to cart:', Number(productId));
+      console.log('Añadiendo producto al carrito:', Number(productId));
       const response = await firstValueFrom(
         this.http.post(`${this.baseUrl}/add`, Number(productId), {withCredentials: true})
       );
-      console.log('Add to cart response:', response);
-      await this.loadCart(); // Reload cart after adding item
+      console.log('Respuesta al añadir al carrito:', response);
+      await this.loadCart(); // Recargar carrito después de añadir el producto
       return response;
     } catch (error) {
-      console.error('Error adding item to cart:', error);
+      console.error('Error añadiendo el producto al carrito:', error);
       throw error;
     }
   }
 
-  // Remove item from cart
+  /**
+   * Elimina un producto del carrito
+   * @param productId - ID del producto a eliminar
+   */
   async removeFromCart(productId: string) {
     try {
       await firstValueFrom(
         this.http.post(`${this.baseUrl}/remove`, Number(productId), {withCredentials: true})
       );
-      await this.loadCart(); // Reload cart after removing item
+      await this.loadCart(); // Recargar carrito después de eliminar el producto
     } catch (error) {
-      console.error('Error removing item from cart:', error);
+      console.error('Error eliminando el producto del carrito:', error);
       await this.loadCart();
       throw error;
     }
   }
 
+  /**
+   * Realiza el checkout del carrito
+   * @param formData - Datos del formulario de checkout
+   */
   async CheckOut(formData: FormData): Promise<any> {
     try {
       const response = await firstValueFrom(
@@ -71,16 +86,21 @@ export class CartService {
       );
       return response;
     } catch (error) {
-      console.error('Error creating product:', error);
+      console.error('Error realizando el checkout:', error);
       throw error;
     }
   }
-  // Get number of items in cart
+
+  /**
+   * Obtiene el número de productos en el carrito
+   */
   getCartCount(): number {
     return this.cartSubject.value.items.reduce((count, item) => count + item.quantity, 0);
   }
 
-  // Get cart total
+  /**
+   * Obtiene el total del carrito
+   */
   getTotal(): number {
     return this.cartSubject.value.total;
   }

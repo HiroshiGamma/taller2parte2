@@ -9,5 +9,9 @@ import { NavbarComponent } from '../../../_Shared/components/navbar/navbar.compo
   styleUrls: ['./changepassword-page.component.css']
 })
 export class ChangepasswordPageComponent {
-
+  /**
+   * Componente de la página de cambio de contraseña.
+   * Este componente utiliza el componente ChangePasswordComponent para manejar el formulario de cambio de contraseña
+   * y el componente NavbarComponent para mostrar la barra de navegación.
+   */
 }
